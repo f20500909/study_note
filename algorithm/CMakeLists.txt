@@ -11,8 +11,9 @@ find_package(Boost)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-add_executable(s boost_rtree.cpp)
+#add_executable(s boost_rtree.cpp)
+add_executable(s2 boost_rtree_point.cpp)
 
 # linking
 
-target_link_libraries(s ${Boost_LIBRARIES})
+target_link_libraries(s2 ${Boost_LIBRARIES})
