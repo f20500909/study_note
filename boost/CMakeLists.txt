@@ -4,6 +4,7 @@ project(boost)
 
 
 
+add_definitions(-std=c++11)
 
 
 set(BOOST_ROOT "D:\\package\\developer\\boost_1_69_0\\boost")
@@ -20,3 +21,7 @@ target_link_libraries(s2 ${Boost_LIBRARIES})
 
 add_executable(near_point near_point.cpp)
 target_link_libraries(near_point ${Boost_LIBRARIES})
+
+
+add_executable(near_point_class near_point_class.cpp)
+target_link_libraries(near_point_class ${Boost_LIBRARIES})
