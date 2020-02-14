@@ -5,5 +5,5 @@ project(thread)
 
 add_definitions(-std=c++11)
 
-#add_executable(print_1 print_1.cpp)
-
+add_executable(print_1 print_1.cpp)
+add_executable(print_abc print_abc.cpp)
