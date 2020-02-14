@@ -10,22 +10,23 @@ typedef boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian> 
 typedef std::pair<point, unsigned> item;
 
 
-class Spatial {
+//尽量用唯一id来遍历
+class SpatialSvg {
 public:
-    Spatial() {
+    SpatialSvg() {
         setDistanceThreshold(5);
     }
 
-    void insert(item&  item) {
+    void insert(const item &item) {
         rtree.insert(item);
     }
 
     //插入点 其标识码为点的序列
-    void insertPoint(point& p) {
-        insertPoint(p,count++);
+    void insert(const point &p) {
+        insert(p, count++);
     }
 
-    void insertPoint(point& p,int id) {
+    void insert(const point &p, const int id) {
         item item = std::make_pair(p, id);
         insert(item);
     }
@@ -46,17 +47,34 @@ public:
         return res;
     }
 
-    boost::geometry::index::rtree<item, boost::geometry::index::quadratic<16> > rtree;
+    //获取邻近点位
+    std::vector<item> getNearItem(point& p, int distance) {
+        std::vector<item> res;
+
+        auto _rule = [&](item const &v) { return boost::geometry::distance(v.first, p) < distance; };
+
+        rtree.query(boost::geometry::index::satisfies(_rule), std::back_inserter(res));
+        return res;
+    }
+
+    std::vector<item> getPattern(point& p){
+
+    }
+
 
     void test() {
-        item temp = std::make_pair(point(2, 2), 2);
-        insert(temp);
-//        insert(std::make_pair(point(2, 2), 2));
-//        rtree.insert(std::make_pair(point(7, 3), 3));
-//        rtree.insert(std::make_pair(point(5, 2), 4));
-//        rtree.insert(std::make_pair(point(6, 2), 5));
-//        rtree.insert(std::make_pair(point(1, 6), 6));
-//        rtree.insert(std::make_pair(point(1, 6), 7));
+        insert(point(2, 2));
+        insert(point(3, 2));
+        insert(point(6, 2));
+        insert(point(2, 8));
+        insert(point(8, 2));
+        insert(point(2, 9));
+
+        for (auto it = rtree.begin(); it != rtree.end(); ++it) {
+            std::cout << it->second << std::endl;
+        }
+
+
     }
 
     inline int getCount(){
@@ -65,11 +83,12 @@ public:
 
     int distanceThreshold;
     int count;
+    boost::geometry::index::rtree<item, boost::geometry::index::quadratic<16> > rtree;
 };
 
 int main(int argc, char *argv[]) {
 
-    Spatial s;
+    SpatialSvg s;
     s.test();
 
     return 0;
