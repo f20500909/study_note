@@ -774,15 +774,6 @@ void RBTree::print() {
         print(mRoot, mRoot->key, 0);
 }
 
-
-/**
- * C++ 语言: 二叉查找树
- *
- * @author skywang
- * @date 2013/11/07
- */
-
-
 int main() {
     int a[] = {10, 40, 30, 60, 90, 70, 20, 50, 80};
     int check_insert = 0;    // "插入"动作的检测开关(0，关闭；1，打开)
@@ -791,7 +782,7 @@ int main() {
     int ilen = (sizeof(a)) / (sizeof(a[0]));
     RBTree *tree = new RBTree();
 
-    cout << "== 原始数据: ";
+    cout << "== row data: ";
     for (i = 0; i < ilen; i++)
         cout << a[i] << " ";
     cout << endl;
@@ -808,19 +799,19 @@ int main() {
 
     }
 
-    cout << "== 前序遍历: ";
+    cout << "== pre order: ";
     tree->preOrder();
 
-    cout << "\n== 中序遍历: ";
+    cout << "\n== in order: ";
     tree->inOrder();
 
-    cout << "\n== 后序遍历: ";
+    cout << "\n== after order: ";
     tree->postOrder();
     cout << endl;
 
-    cout << "== 最小值: " << tree->minimum() << endl;
-    cout << "== 最大值: " << tree->maximum() << endl;
-    cout << "== 树的详细信息: " << endl;
+    cout << "== min: " << tree->minimum() << endl;
+    cout << "== max: " << tree->maximum() << endl;
+    cout << "== info : " << endl;
     tree->print();
 
     // 设置check_remove=1,测试"删除函数"
