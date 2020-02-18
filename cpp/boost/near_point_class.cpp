@@ -5,10 +5,16 @@
 #include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/index/rtree.hpp>
 
+typedef std::tuple<double, char, std::string>  pointTest;
+class A{
+
+};
 
 typedef boost::geometry::model::point<float, 2, boost::geometry::cs::cartesian> point;
-typedef std::pair<point, unsigned> item;
+typedef std::pair<point, A> item;
+typedef std::tuple<point, A,A,A,point> item2;
 
+boost::geometry::index::rtree<item2, boost::geometry::index::quadratic<16> > testData;
 
 //尽量用唯一id来遍历
 class SpatialSvg {

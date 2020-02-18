@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.0)
+project(main)
+#add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
+add_executable(main big_small_endian.cpp)
+#add_executable(main vector.cpp)
+#add_executable(main heapSort.cpp)
+#add_executable(main mergeSort.cpp)
+#add_executable(main countSort.cpp)
+
