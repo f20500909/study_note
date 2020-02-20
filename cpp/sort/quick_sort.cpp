@@ -13,38 +13,11 @@ void print(const vector<int> &vec) {
 }
 
 
-int partition1(vector<int> &vec, int left, int right) {
-    int small = left - 1;
-    int index = left;
-    swap(vec[left], vec[right]);
-    for (; index < right; index++) {
-        if (vec[index] < vec[right]) {
-            small++;
-            if (small != index) swap(vec[small], vec[index]);
-        }
-    }
-    small++;
-    swap(vec[small], vec[right]);
-    return small;
-}
-
-int PartSort(vector<int>& array, int left, int right) {
-    int key = array[right];
-    while (left < right) {
-        while (left < right && array[left] <= key) {
-            ++left;
-        }
-        while (left < right && array[right] >= key) {
-            --right;
-        }
-        swap(array[left], array[right]);
-    }
-    swap(array[left], key);
-    return left;
-}
 
 
-int partition(vector<int>& vec,int left,int right){
+
+// 第一种方法 双指针头尾推进，复合条件就交换
+int partition1(vector<int>& vec,int left,int right){
     int key=vec[right];
     while(left<right){
         while(left<right&&vec[left]<=key) left++;
@@ -55,12 +28,28 @@ int partition(vector<int>& vec,int left,int right){
     return left;
 }
 
+// 第二种方法 双指针从头开始，快慢推进，遍历完所有数据
+int partition2(vector<int> &vec, int left, int right) {
+    int index = left;//用来遍历的指针
+    int small = left - 1;//用于比较的指针，大于比较值则不动，小于比较值则交换
+    swap(vec[index], vec[right]);//选取第一个作为哨兵比较
+    for (; index < right; index++) {//遍历
+        if (vec[index] < vec[right]) {//将小的扔到左边,大的不变
+            small++;
+            swap(vec[small],vec[index]);//交换
+        }
+    }
+    small++;
+    swap(vec[small], vec[right]);//交换初始值
+    return small;
+}
+
 
 
 void quickSort(vector<int> &vec, int left, int right) {
     if (left > right) return;
 
-    int index = PartSort(vec, left, right);
+    int index = partition2(vec, left, right);
 
     if (index > left) quickSort(vec, left, index - 1);
 
@@ -68,11 +57,17 @@ void quickSort(vector<int> &vec, int left, int right) {
 
 }
 
+void quickSort2(vector<int> &vec,int left,int right){
+    if(left>right) return ; //递归出口
+    int index = partition2(vec,left,right);
+    if(index>left) quickSort(vec,left,index-1);
+    if(index<left) quickSort(vec,index+1,right);
+}
 
 
 
 
-int main342342() {
+int main() {
 
     vector<int> data = {4, 7, 8, 3, 1, 1, 2, 6, 5};
     print(data);

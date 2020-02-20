@@ -15,7 +15,7 @@ int my_atoi(const char *str) {
 }
 
 
-int main566() {
+int main() {
     int a;
     char *ptr1 = "-12345";
 

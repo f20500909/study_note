@@ -19,12 +19,12 @@ public:
     -> std::future<typename std::result_of<F(Args...)>::type>;
     ~ThreadPool();
 private:
-    // Ïß³Ì³Ø
+    // çº¿ç¨‹æ± 
     std::vector< std::thread > workers;
-    // ÈÎÎñ¶ÓÁĞ
+    // ä»»åŠ¡é˜Ÿåˆ—
     std::queue< std::function<void()> > tasks;
 
-    // synchronizationÍ¬²½
+    // synchronizationåŒæ­¥
     std::mutex queue_mutex;
     std::condition_variable condition;
     bool stop;
@@ -34,30 +34,30 @@ private:
 inline ThreadPool::ThreadPool(size_t threads)
         :   stop(false)
 {
-    //´´½¨n¸öÏß³Ì£¬Ã¿¸öÏß³ÌµÈ´ıÊÇ·ñÓĞĞÂµÄtask, »òÕßÏß³Ìstop£¨ÒªÖÕÖ¹£©
+    //åˆ›å»ºnä¸ªçº¿ç¨‹ï¼Œæ¯ä¸ªçº¿ç¨‹ç­‰å¾…æ˜¯å¦æœ‰æ–°çš„task, æˆ–è€…çº¿ç¨‹stopï¼ˆè¦ç»ˆæ­¢ï¼‰
     for(size_t i = 0;i<threads;++i)
         workers.emplace_back(
                 [this]
                 {
-                    for(;;)//ÂÖÑ¯
+                    for(;;)//è½®è¯¢
                     {
                         std::function<void()> task;
 
                         {
-                            //»ñÈ¡Í¬²½Ëø
+                            //è·å–åŒæ­¥é”
                             std::unique_lock<std::mutex> lock(this->queue_mutex);
-                            //Ïß³Ì»áÒ»Ö±×èÈû£¬Ö±µ½ÓĞĞÂµÄtask£¬»òÕßÊÇÏß³ÌÒªÍË³ö
+                            //çº¿ç¨‹ä¼šä¸€ç›´é˜»å¡ï¼Œç›´åˆ°æœ‰æ–°çš„taskï¼Œæˆ–è€…æ˜¯çº¿ç¨‹è¦é€€å‡º
                             this->condition.wait(lock,
                                                  [this]{ return this->stop || !this->tasks.empty(); });
-                            //Ïß³ÌÍË³ö
+                            //çº¿ç¨‹é€€å‡º
                             if(this->stop && this->tasks.empty())
                                 return;
-                            //½«taskÈ¡³ö
+                            //å°†taskå–å‡º
                             task = std::move(this->tasks.front());
-                            //¶ÓÁĞÖĞÒÆ³ıÒÔ¼°È¡³öµÄtask
+                            //é˜Ÿåˆ—ä¸­ç§»é™¤ä»¥åŠå–å‡ºçš„task
                             this->tasks.pop();
                         }
-                        //Ö´ĞĞtask,ÍêÁËÔò½øÈëÏÂÒ»´ÎÑ­»·
+                        //æ‰§è¡Œtask,å®Œäº†åˆ™è¿›å…¥ä¸‹ä¸€æ¬¡å¾ªç¯
                         task();
                     }
                 }
@@ -65,14 +65,14 @@ inline ThreadPool::ThreadPool(size_t threads)
 }
 
 // add new work item to the pool
-// ½«¶ÓÁĞÑ¹ÈëÏß³Ì³Ø,ÆäÖĞfÊÇÒªÖ´ĞĞµÄº¯Êı£¬ argsÊÇ¶àÓĞµÄ²ÎÊı
+// å°†é˜Ÿåˆ—å‹å…¥çº¿ç¨‹æ± ,å…¶ä¸­fæ˜¯è¦æ‰§è¡Œçš„å‡½æ•°ï¼Œ argsæ˜¯å¤šæœ‰çš„å‚æ•°
 template<class F, class... Args>
 auto ThreadPool::enqueue(F&& f, Args&&... args)
 -> std::future<typename std::result_of<F(Args...)>::type>
 {
-    //·µ»ØµÄ½á¹ûµÄÀàĞÍ£¬µ±È»¿ÉÒÔ¸ù¾İÊµ¼ÊµÄĞèÒªÈ¥µôÕâ¸ö(gcc4.7µÄc++11²»Ö§³Ö)
+    //è¿”å›çš„ç»“æœçš„ç±»å‹ï¼Œå½“ç„¶å¯ä»¥æ ¹æ®å®é™…çš„éœ€è¦å»æ‰è¿™ä¸ª(gcc4.7çš„c++11ä¸æ”¯æŒ)
     using return_type = typename std::result_of<F(Args...)>::type;
-//½«º¯ÊıhandleÓë²ÎÊı°ó¶¨
+//å°†å‡½æ•°handleä¸å‚æ•°ç»‘å®š
     auto task = std::make_shared< std::packaged_task<return_type()> >(
             std::bind(std::forward<F>(f), std::forward<Args>(args)...)
     );
@@ -80,16 +80,16 @@ auto ThreadPool::enqueue(F&& f, Args&&... args)
     //after finishing the task, then get result by res.get() (mainly used in the invoked function)
     std::future<return_type> res = task->get_future();
     {
-        //Ñ¹Èë¶ÓÁĞĞèÒªÏß³Ì°²È«£¬Òò´ËĞèÒªÏÈ»ñÈ¡Ëø
+        //å‹å…¥é˜Ÿåˆ—éœ€è¦çº¿ç¨‹å®‰å…¨ï¼Œå› æ­¤éœ€è¦å…ˆè·å–é”
         std::unique_lock<std::mutex> lock(queue_mutex);
 
         // don't allow enqueueing after stopping the pool
         if(stop)
             throw std::runtime_error("enqueue on stopped ThreadPool");
-        //ÈÎÎñÑ¹Èë¶ÓÁĞ
+        //ä»»åŠ¡å‹å…¥é˜Ÿåˆ—
         tasks.emplace([task](){ (*task)(); });
     }
-    //Ìí¼ÓÁËĞÂµÄtask£¬Òò´ËÌõ¼ş±äÁ¿Í¨ÖªÆäËûÏß³Ì¿ÉÒÔ»ñÈ¡taskÖ´ĞĞ
+    //æ·»åŠ äº†æ–°çš„taskï¼Œå› æ­¤æ¡ä»¶å˜é‡é€šçŸ¥å…¶ä»–çº¿ç¨‹å¯ä»¥è·å–taskæ‰§è¡Œ
     condition.notify_one();
     return res;
 }
@@ -101,21 +101,21 @@ inline ThreadPool::~ThreadPool()
         std::unique_lock<std::mutex> lock(queue_mutex);
         stop = true;
     }
-    condition.notify_all();//Í¨ÖªËùÓĞÔÚµÈ´ıËøµÄÏß³Ì
-    //µÈ´ıËùÓĞµÄÏß³ÌÈÎÎñÖ´ĞĞÍê³ÉÍË³ö
+    condition.notify_all();//é€šçŸ¥æ‰€æœ‰åœ¨ç­‰å¾…é”çš„çº¿ç¨‹
+    //ç­‰å¾…æ‰€æœ‰çš„çº¿ç¨‹ä»»åŠ¡æ‰§è¡Œå®Œæˆé€€å‡º
     for(std::thread &worker: workers)
         worker.join();
 };
 
-//Ïß³Ì³ØÒªÖ´ĞĞµÄÈÎÎñ
+//çº¿ç¨‹æ± è¦æ‰§è¡Œçš„ä»»åŠ¡
 
-//Ä£ÄâÏÂÔØ£¬sleep 2S
+//æ¨¡æ‹Ÿä¸‹è½½ï¼Œsleep 2S
 void dummy_download(std::string url){
     std::this_thread::sleep_for(std::chrono::seconds(3));
     std::cout<<" complete download: "<<url<<std::endl;
 }
 
-//¸ù¾İid·µ»ØÓÃ»§Ãû
+//æ ¹æ®idè¿”å›ç”¨æˆ·å
 std::string get_user_name(int id){
     std::this_thread::sleep_for(std::chrono::seconds(2));
     return "user_" + std::to_string(id);
@@ -126,17 +126,17 @@ int main(){
 
     ThreadPool tp(5);
 
-    //Ïß³ÌÖ´ĞĞ½á¹ûµÄ·µ»Ø
+    //çº¿ç¨‹æ‰§è¡Œç»“æœçš„è¿”å›
     std::vector<std::future<std::string>> vecStr;
-    // ÏÂÔØ¶ÔÓ¦µÄurlÁ´½Ó£¬Ã»ÓĞ·µ»ØÖµ
+    // ä¸‹è½½å¯¹åº”çš„urlé“¾æ¥ï¼Œæ²¡æœ‰è¿”å›å€¼
     tp.enqueue(dummy_download, "www.baidu.jpg");
     tp.enqueue(dummy_download, "www.yy.jpg");
 
-    //Êı¾İ¿â¸ù¾İid²éÑ¯user name
+    //æ•°æ®åº“æ ¹æ®idæŸ¥è¯¢user name
     vecStr.emplace_back(tp.enqueue(get_user_name, 101));
     vecStr.emplace_back(tp.enqueue(get_user_name, 102));
 
-    //Êä³öÏß³Ì·µ»ØµÄÖµ£¬Êµ¼ÊÖĞ¿ÉÒÔ²»Òª
+    //è¾“å‡ºçº¿ç¨‹è¿”å›çš„å€¼ï¼Œå®é™…ä¸­å¯ä»¥ä¸è¦
     std::future<void> res1 = std::async(std::launch::async, [&vecStr](){
         for (auto &&ret:vecStr) {
             std::cout<<"get user: "<<ret.get();

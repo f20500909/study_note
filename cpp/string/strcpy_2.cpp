@@ -48,7 +48,6 @@ char *myStrcpy(char *dest, const char *src) {
     return res;
 }
 
-
 int main34() {
     char *src = "abfdef";
     char cur[30];

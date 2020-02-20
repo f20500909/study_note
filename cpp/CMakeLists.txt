@@ -17,8 +17,6 @@ foreach(FILE_PATH ${CPP_SRC_LIST})
     STRING(REGEX REPLACE ".+/(.+)\\..*" "\\1" FILE_NAME_NO_SUFFIX ${FILE_PATH})
     message(STATUS  "FILE_NAME_NO_SUFFIX               :   ${FILE_NAME_NO_SUFFIX}  ")
 
-
-
     message(STATUS  "CMAKE_CURRENT_SOURCE_DIR               :   ${CMAKE_CURRENT_SOURCE_DIR}  ")
 
 
@@ -27,9 +25,6 @@ foreach(FILE_PATH ${CPP_SRC_LIST})
 
     STRING( REGEX REPLACE ".*/(.*)" "\\1" CURRENT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR} )
     message(STATUS  "CURRENT_FOLDER               :   ${CURRENT_FOLDER}  ")
-
-
-
 
     math(EXPR ID "${ID} + 1")
 

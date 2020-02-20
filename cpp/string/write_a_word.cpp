@@ -113,7 +113,7 @@ int main()
 
 	timer.stop();
 
-	cout << "使用readWord 读取完成.... 用时: " <<std::setprecision(3) << timer.elapsed()<< endl;
+	cout << "浣跨敤readWord 璇诲彇瀹屾垚.... 鐢ㄦ椂: " <<std::setprecision(3) << timer.elapsed()<< endl;
 
 
 
@@ -125,7 +125,7 @@ int main()
 
 	timer2.stop();
 
-	cout << "使用in      读取完成.... 用时: " << std::setprecision(3) << timer2.elapsed() << endl;
+	cout << "浣跨敤in      璇诲彇瀹屾垚.... 鐢ㄦ椂: " << std::setprecision(3) << timer2.elapsed() << endl;
 
 
 
