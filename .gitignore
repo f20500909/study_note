@@ -13,3 +13,5 @@
 *.mp4
 *.pdf
 *.pdb
+*.makefile
+*.temp

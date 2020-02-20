@@ -1,7 +1,0 @@
-cmake_minimum_required(VERSION 3.0)
-project(temp)
-add_definitions(-std=c++11)
-#add_executable(temp  Singleton.cpp)
-#add_executable(temp  ProductFactory.cpp )
-#add_executable(temp Singleton_hungry.cpp)
-add_executable(temp  Factory_Method.cpp )

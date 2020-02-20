@@ -1,6 +1,0 @@
-cmake_minimum_required(VERSION 3.0)
-project(temp)
-add_definitions(-std=c++11)
-#add_executable(temp leak.cpp smart_ptr.cpp smart_ptr.h)
-#add_executable(temp shared_ptr.cpp)
-add_executable(temp weak_ptr_usage.cpp)
