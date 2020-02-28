@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(stduy_note)
+set(CMAKE_CXX_STANDARD 11)
 
 # 当前目录下所有文件
 file(GLOB CPP_SRC_LIST ${CMAKE_CURRENT_LIST_DIR}/*/*.cpp)
