@@ -13,9 +13,9 @@ public:
     }
 
     BitMap(int size) : size(size), charSize(size / 8) { // contractor, init the data
-        data = new char[charSize];
+        data = new uint8_t[charSize];
         assert(data);
-        memset(data, 0x0, charSize * sizeof(char));
+        memset(data, 0x0, charSize * sizeof(uint8_t));
     }
 
     ~BitMap() {
@@ -33,7 +33,7 @@ public:
     void setTrue(int index) {
         int addr = index / 8;
         int addroffset = index % 8;
-        unsigned char temp = 0x1 << (7 - addroffset);
+         uint8_t temp = 0x1 << (7 - addroffset);
         assert (addr <= charSize + 1);
         data[addr] |= temp;
     }
@@ -51,7 +51,7 @@ public:
     bool get(int index) {
         int addr = index / 8;
         int addroffset = index % 8;
-        unsigned char temp = 0x1 << (7 - addroffset);
+         uint8_t temp = 0x1 << (7 - addroffset);
         assert(addr <= charSize);
         return (data[addr] & temp) > 0 ? 1 : 0;
     }
@@ -62,11 +62,19 @@ public:
         }
         int addr = index / 8;
         int addroffset = index % 8;
-        unsigned char temp = 0x1 << (7 - addroffset);
+         uint8_t temp = 0x1 << (7 - addroffset);
         assert(addr <= charSize);
         data[addr] ^= temp;
         return;
     }
+
+
+    //把一个字符的8位设置为值
+    void setNumber(int index, uint8_t number) {
+        data[index] = number;
+        return;
+    }
+
 
     friend std::ostream &operator<<(std::ostream &os, const BitMap &map) {
         for (int i = 0; i < map.charSize; i++) {
@@ -78,7 +86,7 @@ public:
 
 
 private:
-    char *data;
+    uint8_t *data;
     int charSize;
     int size;
 };
@@ -90,12 +98,14 @@ int main() {
     m.set(0, 1);
     m.set(1, 1, 1);
     m.set(2, 3, 1);
+
     std::cout << m << std::endl;
     std::cout << m.get(0) << std::endl;
     std::cout << m.get(9) << std::endl;
     std::cout << m.get(19) << std::endl;
-    std::cout << m.get(2,3) << std::endl;
+    std::cout << m.get(2, 3) << std::endl;
     std::cout << m.get(20) << std::endl;
+    m.setNumber(7,0xff);
     std::cout << m << std::endl;
     return 0;
 }
