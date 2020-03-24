@@ -8,95 +8,104 @@
 class BitMap {
 public:
     BitMap() {
-        data = NULL;
+        data = nullptr;
         size = 0;
     }
 
-    BitMap(int size) { // contractor, init the data
-        data = NULL;
-        data = new char[size / 8];
+    BitMap(int size) : size(size), charSize(size / 8) { // contractor, init the data
+        data = new uint8_t[charSize];
         assert(data);
-        memset(data, 0x0, size * sizeof(char));
-        this->size = size;
+        memset(data, 0x0, charSize * sizeof(uint8_t));
     }
 
+    ~BitMap() {
+        delete[] data;
+    }
 
-    bool set(int index, bool status) {
+    void set(int index, bool status) {
         if (status) {
-            return setTrue(index);
+            setTrue(index);
         } else {
-
-            return setFalse(index);
+            setFalse(index);
         }
     }
 
-
-    int setTrue(int index) {
+    void setTrue(int index) {
         int addr = index / 8;
         int addroffset = index % 8;
-        unsigned char temp = 0x1 << addroffset;
-        if (addr > (size + 1)) {
-            return 0;
-        } else {
-            data[addr] |= temp;
-            return 1;
-        }
+         uint8_t temp = 0x1 << (7 - addroffset);
+        assert (addr <= charSize + 1);
+        data[addr] |= temp;
     }
 
-    bool set(int charId, int bitId, bool status) {
+    void set(int charId, int bitId, bool status) {
         int index = charId * 8 + bitId;
-        return set(index, status);
+        set(index, status);
     }
 
+    bool get(int charId, int bitId) {
+        int index = charId * 8 + bitId;
+        return get(index);
+    }
 
     bool get(int index) {
         int addr = index / 8;
         int addroffset = index % 8;
-        unsigned char temp = 0x1 << addroffset;
-        if (addr > (size + 1)) {
-            return 0;
-        } else {
-            return (data[addr] & temp) > 0 ? 1 : 0;
-        }
+         uint8_t temp = 0x1 << (7 - addroffset);
+        assert(addr <= charSize);
+        return (data[addr] & temp) > 0 ? 1 : 0;
     }
 
-
-    int setFalse(int index) {
+    void setFalse(int index) {
         if (get(index) == 0) {
-            return 0;
+            return;
         }
         int addr = index / 8;
         int addroffset = index % 8;
-        unsigned char temp = 0x1 << addroffset;
-        if (addr > (size + 1)) {
-            return 0;
-        } else {
-            data[addr] ^= temp;
-            return 1;
-        }
+         uint8_t temp = 0x1 << (7 - addroffset);
+        assert(addr <= charSize);
+        data[addr] ^= temp;
+        return;
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const BitMap m) {
-        int cnt = 0;
-        while (m.data[cnt] != '\0') {
-            os << std::bitset<8>(m.data[cnt]);
-        }
 
+    //把一个字符的8位设置为值
+    void setNumber(int index, uint8_t number) {
+        data[index] = number;
+        return;
+    }
+
+
+    friend std::ostream &operator<<(std::ostream &os, const BitMap &map) {
+        for (int i = 0; i < map.charSize; i++) {
+            os << std::bitset<8>(map.data[i]) << " ";
+        }
         os << std::endl;
         return os;
     }
 
 
 private:
-    char *data;
+    uint8_t *data;
+    int charSize;
     int size;
 };
 
 
 int main() {
 
-    BitMap m(1024);
+    BitMap m(64);
+    m.set(0, 1);
+    m.set(1, 1, 1);
+    m.set(2, 3, 1);
 
-
+    std::cout << m << std::endl;
+    std::cout << m.get(0) << std::endl;
+    std::cout << m.get(9) << std::endl;
+    std::cout << m.get(19) << std::endl;
+    std::cout << m.get(2, 3) << std::endl;
+    std::cout << m.get(20) << std::endl;
+    m.setNumber(7,0xff);
+    std::cout << m << std::endl;
     return 0;
 }
