@@ -5,45 +5,36 @@
 
 using namespace std;
 
-void heapify(vector<int> &vec, int length, int index) {
-    int left = (index << 1) + 1;
-    int right = (index << 1) + 2;
+
+
+//调整堆 需要传入堆的所有数据 (引用) 数据索引  长度
+void heapify(vector<int> &vec, int index, int len) {
+    int left = (index << 1) + 1; //左子树
+    int right = (index << 1) + 1;//右子树
     int maxId = index;
-    if (left < length && vec[left] > vec[maxId]) maxId = left;
-    if (right < length && vec[right] > vec[maxId]) maxId = right;
+    if (left < len && vec[left] > vec[maxId]) {
+        maxId = left;
+    }
+    if (right < len && vec[right] > vec[maxId]) {
+        maxId = right;
+    }
+
     if (maxId != index) {
         swap(vec[index], vec[maxId]);
-        heapify(vec, length, maxId);
+        heapify(vec, maxId, len);
     }
 }
 
-void heapify2(vector<int>& vec,int len,int index){
-    int left = (index<<1)+1;
-    int right= (index<<1)+2;
-    int maxId=index;
-    if(left<len&&vec[left]>vec[maxId]) maxId =left;
-}
 
-void heapSort(vector<int> &vec, int length) {
-    //从最后一个非叶子节点向上
-    for (int i = length / 2 - 1; i >= 0; i--) {
-        heapify(vec, length, i);
+void heapSort(vector<int> &vec, int len) {
+    // 从最后一个叶子节点向上 建立堆 ,堆的大小不变
+    for (int i = len / 2 - 1; i >= 0; i--) {
+        heapify(vec, i, len);
     }
-    for (int i = length - 1; i >= 1; i--) {
-        swap(vec[0], vec[i]);
-        heapify(vec, i, 0);
-    }
-}
-
-void heapSort2(vector<int> &vec, int len) {
-    //建立初始堆
-    for (int i = len / 2 - 1; i > 0; i--) {
-        heapify(vec, len, i);
-    }
-    //依次排序
-    for(int i=len-1;i>=1;i--){
+    // 从尾节点开始调整堆，直到堆的大小为1
+    for (int i = len - 1; i >= 1; i--) {
         swap(vec[0],vec[i]);
-        heapify(vec,i,0);
+        heapify(vec, 0, i);
     }
 }
 

@@ -16,6 +16,18 @@ int binarySearch(vector<int> data, int len, int key) {
 	return -1;
 }
 
+int binarySearch2(vector<int> data,int len,int key){
+    int left = 0;
+    int right = len-1;
+    int mid = 0;
+    while(left<=right){
+        mid = (left+right)>>1;
+        if(data[mid] == key) return mid;
+        if(data[mid]<key) left=mid+1;
+        if(data[mid>key]) right=mid-1;
+    }
+    return -1;
+}
 
 
 

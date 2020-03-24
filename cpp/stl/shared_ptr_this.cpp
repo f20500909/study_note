@@ -18,7 +18,7 @@ public:
     }
 };
 
-int main2()
+int main()
 {
     tester t;
     shared_ptr<tester> sp =  t.sget(); // …

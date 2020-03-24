@@ -11,16 +11,16 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 		int j = i + 1;
 		int k = n - 1;
 		while (j < k) {
-			if (nums[i] + nums[j] + nums[k] > 0) k--;//×ÜºÍ´óÓÚ0£¬k×Ô¼õ£¬½«×ÜºÍ±äĞ¡
-			else if (nums[i] + nums[j] + nums[k] < 0) j++;//×ÜºÍĞ¡ÓÚ0£¬j×ÔÔö£¬½«×ÜºÍ±ä´ó
+			if (nums[i] + nums[j] + nums[k] > 0) k--;//æ€»å’Œå¤§äº0ï¼Œkè‡ªå‡ï¼Œå°†æ€»å’Œå˜å°
+			else if (nums[i] + nums[j] + nums[k] < 0) j++;//æ€»å’Œå°äº0ï¼Œjè‡ªå¢ï¼Œå°†æ€»å’Œå˜å¤§
 
 			else {
 				res.push_back({nums[i],nums[j],nums[k]});
-				while (nums[j + 1] == nums[j]) j++;//Ìø¹ıÖØ¸´µÄ
+				while (nums[j + 1] == nums[j]) j++;//è·³è¿‡é‡å¤çš„
 				j++;
 			}
 		}
-		while (nums[i + 1] == nums[i]) i++;//Ìø¹ıÖØ¸´µÄ,±£Ö¤½á¹ûÎ¨Ò»
+		while (nums[i + 1] == nums[i]) i++;//è·³è¿‡é‡å¤çš„,ä¿è¯ç»“æœå”¯ä¸€
 	}
 	return res;
 }

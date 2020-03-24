@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	string sa = "Copy on write";
+	string sa = "a";
 	string sb = sa;
 	string sc = sb;
 	printf("sa char buffer address: 0x%08X\n", sa.c_str());

@@ -15,7 +15,6 @@ tuple<int, int> getMaxMin(vector<int> &vec) {
     return make_tuple(_min, _max);
 }
 
-
 void countSort(vector<int> &arr) {
     int len = arr.size();
     if (len < 1) return;

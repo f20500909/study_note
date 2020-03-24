@@ -5,6 +5,7 @@
 using namespace std;
 
 int main() {
+
 	int total_weight = 10;
 	int w[6] = {0, 5, 4, 3, 2, 1};
 	int v[6] = {0, 1, 2, 3, 4, 5};
@@ -33,7 +34,6 @@ int main() {
 	}
 
 
-
 	int i = 5, j = 10;
 	while (i > 0 && j > 0)
 	{
@@ -46,6 +46,6 @@ int main() {
 	}
 	cout << endl;
 
-	cout << "总的价值为: " << dp[10] << endl;
+	cout << "total value: " << dp[10] << endl;
 	return 0;
 }

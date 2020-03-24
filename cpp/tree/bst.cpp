@@ -10,8 +10,8 @@ class BTNode   //Binary Tree Node
 {
 public:
     ElemType data;
-    BTNode *lchild;   //×óº¢×Ó
-    BTNode *rchild;   //ÓÒº¢×Ó
+    BTNode *lchild;   //å·¦å­©å­
+    BTNode *rchild;   //å³å­©å­
     BTNode(ElemType d, BTNode *left = NULL, BTNode *right = NULL) : data(d), lchild(left), rchild(right) {}
 };
 
@@ -36,7 +36,7 @@ public:
 
     BTNode *predecessor(ElemType);
 
-    //»ñÈ¡ºó¼Ì
+    //è·å–åç»§
     BTNode *successor(ElemType);
 
     BTNode *minimum();
@@ -52,7 +52,7 @@ public:
     void inOrderWithoutRecursion();
 };
 
-//¹¹Ôì·½·¨
+//æ„é€ æ–¹æ³•
 BinarySearchTree::BinarySearchTree(int *arr, int len) {
     size = 0;
     Root = NULL;
@@ -62,7 +62,7 @@ BinarySearchTree::BinarySearchTree(int *arr, int len) {
     }
 }
 
-//Îö¹¹·½·¨
+//ææ„æ–¹æ³•
 BinarySearchTree::~BinarySearchTree() {
     if (!empty()) {
         queue<BTNode *> q;
@@ -71,22 +71,22 @@ BinarySearchTree::~BinarySearchTree() {
         while (!q.empty()) {
             p = q.front();
             q.pop();
-            //×óº¢×Ó²»Îª¿Õ£¬Ôò×óº¢×ÓÈë¶Ó
+            //å·¦å­©å­ä¸ä¸ºç©ºï¼Œåˆ™å·¦å­©å­å…¥é˜Ÿ
             if (p->lchild)
                 q.push(p->lchild);
-            //ÓÒº¢×Ó²»Îª¿Õ£¬ÔòÓÒº¢×ÓÈë¶Ó
+            //å³å­©å­ä¸ä¸ºç©ºï¼Œåˆ™å³å­©å­å…¥é˜Ÿ
             if (p->rchild)
                 q.push(p->rchild);
-            //ÊÍ·ÅÄÚ´æ
+            //é‡Šæ”¾å†…å­˜
             delete p;
         }
     }
 }
 
-//ÇóÒ¶×Ó½ÚµãÊı
+//æ±‚å¶å­èŠ‚ç‚¹æ•°
 int BinarySearchTree::leaf() {
     int num = 0;
-    //°´ÖĞĞò±éÀú
+    //æŒ‰ä¸­åºéå†
     if (!empty()) {
         stack<BTNode *> s;
         BTNode *p = Root;
@@ -97,7 +97,7 @@ int BinarySearchTree::leaf() {
             } else {
                 p = s.top();
                 s.pop();
-                //×óÓÒ×ÓÊ÷¾ùÎª¿Õ£¬ÔòÎªÒ¶×Ó½Úµã
+                //å·¦å³å­æ ‘å‡ä¸ºç©ºï¼Œåˆ™ä¸ºå¶å­èŠ‚ç‚¹
                 if (p->lchild == NULL && p->rchild == NULL)
                     num++;
                 p = p->rchild;
@@ -107,7 +107,7 @@ int BinarySearchTree::leaf() {
     return num;
 }
 
-//²éÕÒ
+//æŸ¥æ‰¾
 bool BinarySearchTree::search(ElemType data) {
     if (!empty()) {
         BTNode *p = Root;
@@ -120,13 +120,13 @@ bool BinarySearchTree::search(ElemType data) {
                 p = p->rchild;
         }
     }
-    //Ê÷¿Õ»ò²éÕÒÊ§°Ü
+    //æ ‘ç©ºæˆ–æŸ¥æ‰¾å¤±è´¥
     return false;
 }
 
 BTNode *BinarySearchTree::parent(ElemType data) {
     if (!empty()) {
-        //¸ù½ÚµãµÄ¸¸½ÚµãÎª¿Õ
+        //æ ¹èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹ä¸ºç©º
         if (Root->data == data)
             return NULL;
         stack<BTNode *> s;
@@ -137,7 +137,7 @@ BTNode *BinarySearchTree::parent(ElemType data) {
                     return p;
                 s.push(p);
                 p = p->lchild;
-            } else {//×ó×ÓÊ÷·ÃÎÊÍêºó£¬·ÃÎÊÓÒ×ÓÊ÷
+            } else {//å·¦å­æ ‘è®¿é—®å®Œåï¼Œè®¿é—®å³å­æ ‘
                 p = s.top();
                 s.pop();
                 p = p->rchild;
@@ -147,7 +147,7 @@ BTNode *BinarySearchTree::parent(ElemType data) {
     return NULL;
 }
 
-//»ñÈ¡Ç°Çı
+//è·å–å‰é©±
 BTNode *BinarySearchTree::predecessor(ElemType data) {
     BTNode *pcur, *plastVisit;
     pcur = plastVisit = NULL;
@@ -173,7 +173,7 @@ BTNode *BinarySearchTree::predecessor(ElemType data) {
     return plastVisit;
 }
 
-//»ñÈ¡ºó¼Ì
+//è·å–åç»§
 BTNode *BinarySearchTree::successor(ElemType data) {
     BTNode *pcur = NULL;
     pcur = Root;
@@ -192,41 +192,41 @@ BTNode *BinarySearchTree::successor(ElemType data) {
             }
         }
     }
-    //¿ÕÊ÷
+    //ç©ºæ ‘
     return NULL;
 }
 
-//»ñÈ¡×îĞ¡½Úµã
+//è·å–æœ€å°èŠ‚ç‚¹
 BTNode *BinarySearchTree::minimum() {
-    //×îĞ¡½ÚµãÔÚ×ó×ÓÊ÷×îÏÂ±ß
+    //æœ€å°èŠ‚ç‚¹åœ¨å·¦å­æ ‘æœ€ä¸‹è¾¹
     if (!empty()) {
         BTNode *p = Root;
         while (p->lchild)
             p = p->lchild;
         return p;
     }
-    //Ê÷¿Õ
+    //æ ‘ç©º
     return NULL;
 }
 
-//»ñÈ¡×î´ó½Úµã
+//è·å–æœ€å¤§èŠ‚ç‚¹
 BTNode *BinarySearchTree::maximum() {
-    //×î´ó½ÚµãÔÚÓÒ×ÓÊ÷×îÏÂ±ß
+    //æœ€å¤§èŠ‚ç‚¹åœ¨å³å­æ ‘æœ€ä¸‹è¾¹
     if (!empty()) {
         BTNode *p = Root;
         while (p->rchild)
             p = p->rchild;
         return p;
     }
-    //Ê÷¿Õ
+    //æ ‘ç©º
     return NULL;
 }
 
-//²åÈëĞÂ½Úµã
+//æ’å…¥æ–°èŠ‚ç‚¹
 bool BinarySearchTree::insertNode(ElemType data) {
     /*
-     ĞÂ½Úµã¶¼»á±»²åÈëµ½Ò¶×Ó´¦
-     ²åÈëÒ»°ã²»»áÊ§°Ü£¬³ı·ÇÊÇ²åÈëÁËÖØ¸´½Úµã¡£
+     æ–°èŠ‚ç‚¹éƒ½ä¼šè¢«æ’å…¥åˆ°å¶å­å¤„
+     æ’å…¥ä¸€èˆ¬ä¸ä¼šå¤±è´¥ï¼Œé™¤éæ˜¯æ’å…¥äº†é‡å¤èŠ‚ç‚¹ã€‚
     */
     if (Root == NULL) {
         Root = new BTNode(data);
@@ -236,10 +236,10 @@ bool BinarySearchTree::insertNode(ElemType data) {
         BTNode *p = Root;
         while (true) {
             if (data < p->data) {
-                //Èç¹ûÓĞ×ó×ÓÊ÷£¬Ôò¼ÌĞø±éÀú×ó×ÓÊ÷
+                //å¦‚æœæœ‰å·¦å­æ ‘ï¼Œåˆ™ç»§ç»­éå†å·¦å­æ ‘
                 if (p->lchild)
                     p = p->lchild;
-                else {//·ñÔò£¬²åÈë½Úµã£¬ÏÂÍ¬
+                else {//å¦åˆ™ï¼Œæ’å…¥èŠ‚ç‚¹ï¼Œä¸‹åŒ
                     p->lchild = new BTNode(data);
                     break;
                 }
@@ -250,77 +250,77 @@ bool BinarySearchTree::insertNode(ElemType data) {
                     p->rchild = new BTNode(data);
                     break;
                 }
-            } else//Óöµ½ÖØ¸´½Úµã
+            } else//é‡åˆ°é‡å¤èŠ‚ç‚¹
                 return false;
         }
-        //²åÈëĞÂ½Úµã³É¹¦£¬½Úµã×ÜÊı¼ÓÒ»
+        //æ’å…¥æ–°èŠ‚ç‚¹æˆåŠŸï¼ŒèŠ‚ç‚¹æ€»æ•°åŠ ä¸€
         size++;
         return true;
     }
 }
 
-//É¾³ı½Úµã
+//åˆ é™¤èŠ‚ç‚¹
 bool BinarySearchTree::deleteNode(ElemType data) {
     /*
-    É¾³ı¹æÔò
-    1.Èô´ıÉ¾½ÚµãÎŞ×ó×ÓÊ÷£¬ÔòÓÃÆäÓÒ×ÓÊ÷µÄ¸ù½ÚµãÌæ»»Ëü¡£
-    2.Èô´ıÉ¾½ÚµãÓĞ×ó×ÓÊ÷£¬ÔòÔÚ×ó×ÓÊ÷ÖĞÑ°ÕÒÖĞĞò±éÀúµÄ×îºóÒ»¸ö½Úµã£¬ÓÃ¸Ã½ÚµãÌæ»»Ëü¡£
+    åˆ é™¤è§„åˆ™
+    1.è‹¥å¾…åˆ èŠ‚ç‚¹æ— å·¦å­æ ‘ï¼Œåˆ™ç”¨å…¶å³å­æ ‘çš„æ ¹èŠ‚ç‚¹æ›¿æ¢å®ƒã€‚
+    2.è‹¥å¾…åˆ èŠ‚ç‚¹æœ‰å·¦å­æ ‘ï¼Œåˆ™åœ¨å·¦å­æ ‘ä¸­å¯»æ‰¾ä¸­åºéå†çš„æœ€åä¸€ä¸ªèŠ‚ç‚¹ï¼Œç”¨è¯¥èŠ‚ç‚¹æ›¿æ¢å®ƒã€‚
     */
     if (!empty()) {
-        //Ê÷ÖĞÎŞ´Ë½Úµã£¬É¾³ıÊ§°Ü
+        //æ ‘ä¸­æ— æ­¤èŠ‚ç‚¹ï¼Œåˆ é™¤å¤±è´¥
         if (!search(data))
             return false;
         /*
-        p:´ıÉ¾½áµã
-        Parent:´ıÉ¾³ı½ÚµãµÄ¸¸½Úµã
-        temp:Ìæ»»½Úµã
-        tempp:Ìæ»»½ÚµãµÄ¸¸½Úµã
+        p:å¾…åˆ ç»“ç‚¹
+        Parent:å¾…åˆ é™¤èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
+        temp:æ›¿æ¢èŠ‚ç‚¹
+        tempp:æ›¿æ¢èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
         */
         BTNode *p, *Parent, *temp, *tempp;
         p = Parent = temp = tempp = NULL;
-        //»ñÈ¡´ıÉ¾³ı½ÚµãµÄ¸¸½Úµã
+        //è·å–å¾…åˆ é™¤èŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹
         Parent = parent(data);
-        //¸ù¾İ¸¸½Úµã£¬È·¶¨´ıÉ¾½áµã
+        //æ ¹æ®çˆ¶èŠ‚ç‚¹ï¼Œç¡®å®šå¾…åˆ ç»“ç‚¹
         if (Parent->lchild && Parent->lchild->data == data)
             p = Parent->lchild;
         else
             p = Parent->rchild;
-        //Èç¹û×ó×ÓÊ÷²»Îª¿Õ£¬²éÕÒÆäÖĞĞò±éÀúµÄ×îºóÒ»¸ö½Úµã
+        //å¦‚æœå·¦å­æ ‘ä¸ä¸ºç©ºï¼ŒæŸ¥æ‰¾å…¶ä¸­åºéå†çš„æœ€åä¸€ä¸ªèŠ‚ç‚¹
         if (p->lchild) {
             temp = p->lchild;
             while (temp->rchild) {
                 tempp = temp;
-                //²»¶Ï±éÀúÓÒ×ÓÊ÷
+                //ä¸æ–­éå†å³å­æ ‘
                 temp = temp->rchild;
             }
-            //Èç¹ûpµÄ×óº¢×Ó¼´ÊÇÌæ»»½Úµã
+            //å¦‚æœpçš„å·¦å­©å­å³æ˜¯æ›¿æ¢èŠ‚ç‚¹
             if (tempp == NULL)
                 p->lchild = temp->lchild;
-            else//Ìæ»»½ÚµãµÄ×ó×ÓÊ÷×÷ÎªÆä¸¸½ÚµãµÄÓÒ×ÓÊ÷(Õâ¾äÄÑÒÔÀí½â£¬ĞèÒª¶àÏëÏë)
+            else//æ›¿æ¢èŠ‚ç‚¹çš„å·¦å­æ ‘ä½œä¸ºå…¶çˆ¶èŠ‚ç‚¹çš„å³å­æ ‘(è¿™å¥éš¾ä»¥ç†è§£ï¼Œéœ€è¦å¤šæƒ³æƒ³)
                 tempp->rchild = temp->lchild;
-            //Ìæ»»½Úµã¼Ì³Ğ´ıÉ¾½áµãµÄ×óÓÒº¢×Ó
+            //æ›¿æ¢èŠ‚ç‚¹ç»§æ‰¿å¾…åˆ ç»“ç‚¹çš„å·¦å³å­©å­
             temp->lchild = p->lchild;
             temp->rchild = p->rchild;
         } else
             temp = p->rchild;
-        //Ìæ»»½ÚµãÌæ»»µô´ıÉ¾½áµã(ÕâÒ²ÊÇÎªÊ²Ã´ĞèÒªÕÒµ½´ıÉ¾½áµãµÄ¸¸½Úµã)
-        if (Parent == NULL)  //´ıÉ¾½áµãÇ¡Îª¸ù½Úµã
+        //æ›¿æ¢èŠ‚ç‚¹æ›¿æ¢æ‰å¾…åˆ ç»“ç‚¹(è¿™ä¹Ÿæ˜¯ä¸ºä»€ä¹ˆéœ€è¦æ‰¾åˆ°å¾…åˆ ç»“ç‚¹çš„çˆ¶èŠ‚ç‚¹)
+        if (Parent == NULL)  //å¾…åˆ ç»“ç‚¹æ°ä¸ºæ ¹èŠ‚ç‚¹
             Root = temp;
-        else if (Parent->lchild == p)  //´ıÉ¾½áµã±¾Éí´¦ÓÚ×ó×ÓÊ÷
+        else if (Parent->lchild == p)  //å¾…åˆ ç»“ç‚¹æœ¬èº«å¤„äºå·¦å­æ ‘
             Parent->lchild = temp;
-        else//´ıÉ¾½áµã±¾Éí´¦ÓÚÓÒ×ÓÊ÷
+        else//å¾…åˆ ç»“ç‚¹æœ¬èº«å¤„äºå³å­æ ‘
             Parent->rchild = temp;
-        //É¾³ı´ıÉ¾½áµã
+        //åˆ é™¤å¾…åˆ ç»“ç‚¹
         delete p;
-        //½Úµã×ÜÊı¼õÒ»
+        //èŠ‚ç‚¹æ€»æ•°å‡ä¸€
         size--;
         return true;
     }
-    //Ê÷¿Õ
+    //æ ‘ç©º
     return false;
 }
 
-//ÖĞĞò±éÀú
+//ä¸­åºéå†
 void BinarySearchTree::inOrderWithoutRecursion() {
     if (!empty()) {
         stack<BTNode *> s;
@@ -341,48 +341,48 @@ void BinarySearchTree::inOrderWithoutRecursion() {
 }
 
 int main() {
-    cout << "******¶ş²æËÑË÷Ê÷***by David***" << endl;
+    cout << "******äºŒå‰æœç´¢æ ‘***by David***" << endl;
     int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     BinarySearchTree tree(arr, 9);
-    cout << "ÖĞĞò±éÀú" << endl;
+    cout << "ä¸­åºéå†" << endl;
     tree.traverse();
-    cout << "Ê÷ÖĞ½Úµã×ÜÊı " << tree.getSize() << endl;
-    cout << "Ò¶×Ó½ÚµãÊı " << tree.leaf() << endl;
+    cout << "æ ‘ä¸­èŠ‚ç‚¹æ€»æ•° " << tree.getSize() << endl;
+    cout << "å¶å­èŠ‚ç‚¹æ•° " << tree.leaf() << endl;
     BTNode *p = NULL;
     p = tree.minimum();
-    p ? cout << "×îĞ¡½ÚµãÊÇ " << p->data << endl : cout << "Ê÷¿Õ£¡" << endl;
+    p ? cout << "æœ€å°èŠ‚ç‚¹æ˜¯ " << p->data << endl : cout << "æ ‘ç©ºï¼" << endl;
     p = tree.maximum();
-    p ? cout << "×î´ó½ÚµãÊÇ " << p->data << endl : cout << "Ê÷¿Õ£¡" << endl;
+    p ? cout << "æœ€å¤§èŠ‚ç‚¹æ˜¯ " << p->data << endl : cout << "æ ‘ç©ºï¼" << endl;
     ElemType data = 2;
-    cout << endl << "²éÕÒ½Úµã " << data << endl;
+    cout << endl << "æŸ¥æ‰¾èŠ‚ç‚¹ " << data << endl;
     if (tree.search(data)) {
-        cout << "½Úµã " << data << " ²éÕÒ³É¹¦£¡" << endl;
+        cout << "èŠ‚ç‚¹ " << data << " æŸ¥æ‰¾æˆåŠŸï¼" << endl;
         p = tree.predecessor(data);
-        p ? cout << "½Úµã " << data << " µÄÇ°ÇıÊÇ " << p->data << endl : cout << "ÎŞÇ°Çı£¡" << endl;
+        p ? cout << "èŠ‚ç‚¹ " << data << " çš„å‰é©±æ˜¯ " << p->data << endl : cout << "æ— å‰é©±ï¼" << endl;
         p = tree.successor(data);
-        p ? cout << "½Úµã " << data << " µÄºó¼ÌÊÇ " << p->data << endl : cout << "ÎŞºó¼Ì£¡" << endl;
+        p ? cout << "èŠ‚ç‚¹ " << data << " çš„åç»§æ˜¯ " << p->data << endl : cout << "æ— åç»§ï¼" << endl;
     } else
-        cout << "½Úµã " << data << "²»ÔÚÊ÷ÖĞ£¡" << endl;
+        cout << "èŠ‚ç‚¹ " << data << "ä¸åœ¨æ ‘ä¸­ï¼" << endl;
     data = 6;
-    cout << endl << "É¾³ı½Úµã " << data << endl;
+    cout << endl << "åˆ é™¤èŠ‚ç‚¹ " << data << endl;
     if (tree.deleteNode(data)) {
-        cout << "É¾³ı³É¹¦£¡" << endl;
-        cout << "ÖĞĞò±éÀú" << endl;
+        cout << "åˆ é™¤æˆåŠŸï¼" << endl;
+        cout << "ä¸­åºéå†" << endl;
         tree.traverse();
-        cout << "Ê÷ÖĞ½Úµã×ÜÊı " << tree.getSize() << endl;
-        cout << "Ò¶×Ó½ÚµãÊı " << tree.leaf() << endl;
+        cout << "æ ‘ä¸­èŠ‚ç‚¹æ€»æ•° " << tree.getSize() << endl;
+        cout << "å¶å­èŠ‚ç‚¹æ•° " << tree.leaf() << endl;
         data = 5;
-        cout << endl << "²éÕÒ½Úµã " << data << endl;
+        cout << endl << "æŸ¥æ‰¾èŠ‚ç‚¹ " << data << endl;
         if (tree.search(data)) {
-            cout << "½Úµã " << data << " ²éÕÒ³É¹¦£¡" << endl;
+            cout << "èŠ‚ç‚¹ " << data << " æŸ¥æ‰¾æˆåŠŸï¼" << endl;
             p = tree.predecessor(data);
-            p ? cout << "½Úµã " << data << " µÄÇ°ÇıÊÇ " << p->data << endl : cout << "ÎŞÇ°Çı£¡" << endl;
+            p ? cout << "èŠ‚ç‚¹ " << data << " çš„å‰é©±æ˜¯ " << p->data << endl : cout << "æ— å‰é©±ï¼" << endl;
             p = tree.successor(data);
-            p ? cout << "½Úµã " << data << " µÄºó¼ÌÊÇ " << p->data << endl : cout << "ÎŞºó¼Ì£¡" << endl;
+            p ? cout << "èŠ‚ç‚¹ " << data << " çš„åç»§æ˜¯ " << p->data << endl : cout << "æ— åç»§ï¼" << endl;
         } else
-            cout << "½Úµã " << data << "²»ÔÚÊ÷ÖĞ£¡" << endl;
+            cout << "èŠ‚ç‚¹ " << data << "ä¸åœ¨æ ‘ä¸­ï¼" << endl;
     } else
-        cout << "É¾³ıÊ§°Ü£¡" << endl;
+        cout << "åˆ é™¤å¤±è´¥ï¼" << endl;
     cout << endl;
     system("pause");
     return 0;

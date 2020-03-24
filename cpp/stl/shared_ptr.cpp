@@ -42,7 +42,6 @@ public:
 
     }
 
-
     ~Shared_ptr(){
         --(*_cnt);
         if(*_cnt==0){
@@ -65,6 +64,57 @@ public:
 private:
     T* _ptr;
     int* _cnt;
+};
+
+
+template<class T>
+class shared_ptr {
+public:
+    shared_ptr() = delete;
+
+    shared_ptr(T *p) : _ptr(p), _cnt(new int(1)) {
+    }
+
+    shared_ptr(shared_ptr<T> &input) {
+        this->_ptr = input._ptr;
+        this->_cnt = input._cnt + 1;
+    }
+
+
+    shared_ptr<T> &operator=(shared_ptr<T> &input) {
+        this->_ptr = input._ptr;
+        this->_cnt = input._cnt + 1;
+    }
+
+
+    ~shared_ptr() {
+        (*this->_cnt)--;
+        if ((*this->_cnt) == 0) {
+            delete _ptr;
+            delete _cnt;
+            _ptr = nullptr;
+            _cnt = nullptr;
+        }
+    }
+
+    T *get() {
+        return _ptr;
+    }
+
+    T &operator*() {
+        return *_ptr;
+    }
+
+    T *operator->() {
+        return _ptr;
+    }
+
+
+private:
+    T *_ptr;
+    int *_cnt;
+
+
 };
 
 

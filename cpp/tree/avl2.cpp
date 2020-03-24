@@ -1,11 +1,66 @@
-
-#include "avl.h"
+#include<vector>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <algorithm>
 
 using namespace std;
+
+class Node {
+public:
+    int key = 0;
+    int height = 0;
+    Node *left = nullptr;
+    Node *right = nullptr;
+
+    Node(int key_t = 0) {
+        key = key_t;
+        height = 1;
+        left = right = nullptr;
+    }
+};
+
+class AVL {
+private:
+    Node *header; //header结点并非根结点，header->left指向的才是根结点。
+
+    Node *ll_rotate(Node *y);
+
+    Node *rr_rotate(Node *y);
+
+    Node *lr_rotate(Node *y);
+
+    Node *rl_rotate(Node *y);
+
+
+    int get_height(Node *node);
+
+    int get_balance(Node *node);
+
+    Node *insert_real(int key, Node *node);
+
+    Node *&find_real(int key, Node *&node);
+
+    Node *erase_real(int key, Node *node);
+
+
+    int destory(Node *node);
+
+public:
+    AVL();
+
+    ~AVL();
+
+    void insert(int key);
+
+    // (递归实现)查找"AVL"中键值为key的节点
+    Node *find(int key);
+
+    //(非递归实现)查找"AVL"中键值为key的节点
+    Node *loop_find(int key);
+
+    void erase(int key);
+};
 
 AVL::AVL() {
     header = new Node(-100);
@@ -30,8 +85,8 @@ void AVL::insert(int key) {
     header->left = insert_real(key, header->left);
 }
 
-int AVL::get_height(Node* node){
-    if(nullptr==node) return 0;
+int AVL::get_height(Node *node) {
+    if (nullptr == node) return 0;
     return node->height;
 }
 
@@ -46,15 +101,18 @@ Node *AVL::insert_real(int key, Node *node) //返回新的根节点，用来更�
     if (node == nullptr)
         return new Node(key);
 
-    if (key < node->key)
+    //递归 判断插到左边还是插入到右边
+    if (key < node->key) {
         node->left = insert_real(key, node->left);
-    else if (key > node->key)
+    } else if (key > node->key) {
         node->right = insert_real(key, node->right);
-    else
-        return node;
+    } else return node;
 
+    //当前节点的高度是左右子树高度最大值加一
     node->height = max(get_height(node->left), get_height(node->right)) + 1;
     //因为新加入了一个节点，所以回溯的时候给各个节点高度 +1
+
+    //拿到平衡因子
     int balance = get_balance(node); //左减右
 
     // 左左失衡
@@ -80,6 +138,7 @@ Node *AVL::insert_real(int key, Node *node) //返回新的根节点，用来更�
     return node;
 }
 
+//左左失衡
 Node *AVL::ll_rotate(Node *y) {
     Node *x = y->left;
     y->left = x->right;
@@ -89,11 +148,8 @@ Node *AVL::ll_rotate(Node *y) {
     return x; //返回根节点
 
 
+
 }
-
-
-
-
 
 Node *AVL::rr_rotate(Node *y) {
     Node *x = y->right;
@@ -145,7 +201,7 @@ Node *AVL::loop_find(int key) {
 
 Node *AVL::erase_real(int key, Node *node) {
     if (node == nullptr) {
-        cout << key << "不在该 AVL 树中" << endl;
+        cout << key << "  not in AVL tree" << endl;
         return node;
     }
 
@@ -201,7 +257,7 @@ void AVL::erase(int key) {
     header->left = erase_real(key, header->left);
 }
 
-int main(void) {
+int main() {
     AVL avl;
 
     // test "insert"

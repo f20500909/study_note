@@ -775,7 +775,7 @@ void RBTree::print() {
 }
 
 int main() {
-    int a[] = {10, 40, 30, 60, 90, 70, 20, 50, 80};
+    int a[] = {1, 4, 3, 6, 9, 7, 2, 5, 8};
     int check_insert = 0;    // "插入"动作的检测开关(0，关闭；1，打开)
     int check_remove = 0;    // "删除"动作的检测开关(0，关闭；1，打开)
     int i;
