@@ -37,9 +37,8 @@ public:
         }
         this->_ptr=obj->_ptr;
         this->_cnt=obj->_cnt;
-        (*this->cnt)++;
+        (*this->_cnt)++;
         return *this;
-
     }
 
     ~Shared_ptr(){
@@ -81,10 +80,6 @@ public:
     }
 
 
-    shared_ptr<T> &operator=(shared_ptr<T> &input) {
-        this->_ptr = input._ptr;
-        this->_cnt = input._cnt + 1;
-    }
 
 
     ~shared_ptr() {
@@ -134,7 +129,6 @@ int main(){
     Shared_ptr<char> sp4=sp1;
     cout<<sp1.count()<<endl;
     cout<<sp4.count()<<endl;
-
 
     return 0;
 }

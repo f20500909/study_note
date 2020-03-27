@@ -6,7 +6,6 @@
 using namespace std;
 
 
-
 //调整堆 需要传入堆的所有数据 (引用) 数据索引  长度
 void heapify(vector<int> &vec, int index, int len) {
     int left = (index << 1) + 1; //左子树
@@ -33,10 +32,13 @@ void heapSort(vector<int> &vec, int len) {
     }
     // 从尾节点开始调整堆，直到堆的大小为1
     for (int i = len - 1; i >= 1; i--) {
-        swap(vec[0],vec[i]);
+        swap(vec[0], vec[i]);
         heapify(vec, 0, i);
     }
 }
+
+
+
 
 
 int main() {
