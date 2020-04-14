@@ -1,9 +1,9 @@
 /*-------------------------------------
-*   ÈÕÆÚ£º2015-03-31
-*   ×÷Õß£ºSJF0115
-*   ÌâÄ¿: ÊµÏÖstringÀà
-*   À´Ô´£º°Ù¶È
-*   ²©¿Í£º
+*   æ—¥æœŸï¼š2015-03-31
+*   ä½œè€…ï¼šSJF0115
+*   é¢˜ç›®: å®ç°stringç±»
+*   æ¥æºï¼šç™¾åº¦
+*   åšå®¢ï¼š
 ------------------------------------*/
 #include <iostream>
 #include <cstring>
@@ -11,31 +11,31 @@ using namespace std;
 
 class String {
 public:
-	// Ä¬ÈÏ¹¹Ôìº¯Êı
+	// é»˜è®¤æ„é€ å‡½æ•°
 	String(const char* str = NULL);
-	// ¸´ÖÆ¹¹Ôìº¯Êı
+	// å¤åˆ¶æ„é€ å‡½æ•°
 	String(const String &str);
-	// Îö¹¹º¯Êı
+	// ææ„å‡½æ•°
 	~String();
-	// ×Ö·û´®Á¬½Ó
+	// å­—ç¬¦ä¸²è¿æ¥
 	String operator+(const String & str);
-	// ×Ö·û´®¸³Öµ
+	// å­—ç¬¦ä¸²èµ‹å€¼
 	String & operator=(const String &str);
-	// ×Ö·û´®¸³Öµ
+	// å­—ç¬¦ä¸²èµ‹å€¼
 	String & operator=(const char* str);
-	// ÅĞ¶ÏÊÇ·ñ×Ö·û´®ÏàµÈ
+	// åˆ¤æ–­æ˜¯å¦å­—ç¬¦ä¸²ç›¸ç­‰
 	bool operator==(const String &str);
-	// »ñÈ¡×Ö·û´®³¤¶È
+	// è·å–å­—ç¬¦ä¸²é•¿åº¦
 	int length();
-	// Çó×Ó×Ö·û´®[start,start+n-1]
+	// æ±‚å­å­—ç¬¦ä¸²[start,start+n-1]
 	String substr(int start, int n);
-	// ÖØÔØÊä³ö
+	// é‡è½½è¾“å‡º
 	friend ostream & operator<<(ostream &o, const String &str);
 private:
 	char* data;
 	int size;
 };
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 String::String(const char *str) {
 	if (str == NULL) {
 		data = new char[1];
@@ -48,20 +48,20 @@ String::String(const char *str) {
 		strcpy(data, str);
 	}//else
 }
-// ¸´ÖÆ¹¹Ôìº¯Êı
+// å¤åˆ¶æ„é€ å‡½æ•°
 String::String(const String &str) {
 	size = str.size;
 	data = new char[size + 1];
 	strcpy(data, str.data);
 }
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 String::~String() {
 	delete[] data;
 }
-// ×Ö·û´®Á¬½Ó
+// å­—ç¬¦ä¸²è¿æ¥
 String String::operator+(const String &str) {
 	String newStr;
-	//ÊÍ·ÅÔ­ÓĞ¿Õ¼ä
+	//é‡Šæ”¾åŸæœ‰ç©ºé—´
 	delete[] newStr.data;
 	newStr.size = size + str.size;
 	newStr.data = new char[newStr.size + 1];
@@ -69,7 +69,7 @@ String String::operator+(const String &str) {
 	strcpy(newStr.data + size, str.data);
 	return newStr;
 }
-// ×Ö·û´®¸³Öµ
+// å­—ç¬¦ä¸²èµ‹å€¼
 String & String::operator=(const String &str) {
 	if (data == str.data) {
 		return *this;
@@ -80,7 +80,7 @@ String & String::operator=(const String &str) {
 	strcpy(data, str.data);
 	return *this;
 }
-// ×Ö·û´®¸³Öµ
+// å­—ç¬¦ä¸²èµ‹å€¼
 String& String::operator=(const char* str) {
 	if (data == str) {
 		return *this;
@@ -91,20 +91,20 @@ String& String::operator=(const char* str) {
 	strcpy(data, str);
 	return *this;
 }
-// ÅĞ¶ÏÊÇ·ñ×Ö·û´®ÏàµÈ
+// åˆ¤æ–­æ˜¯å¦å­—ç¬¦ä¸²ç›¸ç­‰
 bool String::operator==(const String &str) {
 	return strcmp(data, str.data) == 0;
 }
-// »ñÈ¡×Ö·û´®³¤¶È
+// è·å–å­—ç¬¦ä¸²é•¿åº¦
 int String::length() {
 	return size;
 }
-// Çó×Ó×Ö·û´®[start,start+n-1]
+// æ±‚å­å­—ç¬¦ä¸²[start,start+n-1]
 String String::substr(int start, int n) {
 	String newStr;
-	// ÊÍ·ÅÔ­ÓĞÄÚ´æ
+	// é‡Šæ”¾åŸæœ‰å†…å­˜
 	delete[] newStr.data;
-	// ÖØĞÂÉêÇëÄÚ´æ
+	// é‡æ–°ç”³è¯·å†…å­˜
 	newStr.data = new char[n + 1];
 	for (int i = 0; i < n; ++i) {
 		newStr.data[i] = data[start + i];
@@ -113,11 +113,46 @@ String String::substr(int start, int n) {
 	newStr.size = n;
 	return newStr;
 }
-// ÖØÔØÊä³ö
+// é‡è½½è¾“å‡º
 ostream & operator<<(ostream &o, const String &str) {
 	o << str.data;
 	return o;
 }
+
+
+
+class MyString2{
+private:
+    char* _data;
+    int _size;
+
+public:
+    MyString2(const char* src){
+        if(!src){
+            //å¦‚æœä¸ºç©º
+            this->_size=1;
+            this->_data =new char[1];
+            this->_data[0]='0';
+        }else{
+            this->_size=strlen(src);
+            _data= new char [this->_size+1];
+            strcpy(_data,src);
+        }
+    }
+    MyString2(MyString2& src){
+        this->_size=src._size;
+//        this->_data=src._data;
+        delete[] this->_data;
+        this->_data = new char [this->_size+1];
+        strcpy(this->_data,src._data);
+    }
+
+    MyString2& operator=(MyString2& src){
+
+    }
+
+
+};
 
 int main() {
 	String str1("hello ");
@@ -129,10 +164,10 @@ int main() {
 
 	String str4("helloworld");
 	if (str3 == str4) {
-		cout << str3 << " ºÍ " << str4 << " ÊÇÒ»ÑùµÄ" << endl;
+		cout << str3 << " å’Œ " << str4 << " æ˜¯ä¸€æ ·çš„" << endl;
 	}//if
 	else {
-		cout << str3 << " ºÍ " << str4 << " ÊÇ²»Ò»ÑùµÄ" << endl;
+		cout << str3 << " å’Œ " << str4 << " æ˜¯ä¸ä¸€æ ·çš„" << endl;
 	}
 
 	cout << str3.substr(6, 5) << " size->" << str3.substr(6, 5).length() << endl;

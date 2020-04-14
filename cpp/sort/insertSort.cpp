@@ -13,24 +13,26 @@ void insertSort(vector<int> &data) {
     }
 }
 
-void insertSort3(vector<int> &data) {
-    for (int i = 1; i < data.size(); i++) {
-        for (int j = i -1; j>=0 < data.size(); j++){
 
+//插入排序 数组前部是有序的  需要从无序数组中选一个有序的元素插入到有序部分 从而增加有序部分的长度
+
+void insertSort2(vector<int> &data) {
+    //前面是有序的 后面是无序的
+    for (int i = 1; i < data.size(); i++) { // 有序区间不断扩大
+        for (int j = i; j >0; j--) {
+            if(data[j-1]>data[j]) swap(data[j],data[j-1]);
 
         }
-
     }
-
 
 }
 
 
 int main() {
 
-    int a[10] = {3, 1, 1, 3, 2, 4, 5, 8, 7, 6};
-    insertSort2(a, 10);
+    vector<int> data = {3, 1, 1, 3, 2, 4, 5, 8, 7, 6};
+    insertSort2(data);
     for (int i = 0; i < 10; ++i)
-        cout << a[i] << " ";
+        cout << data[i] << " ";
 }
 

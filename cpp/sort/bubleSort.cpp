@@ -28,7 +28,26 @@ void bubbleSort3(vector<int> &data) {
         }
 
     }
+}
 
+
+void bubbleSort4(vector<int> &data) {
+    for (int i = 0; i < data.size() - 1; i++) {
+        for (int j = 1; j < data.size() - i - 1; j++) {
+            if (data[j] < data[j - 1]) swap(data[j], data[j - 1]);
+        }
+    }
+}
+
+
+//冒泡排序 始终从0开始比较起
+void bubbleSort5(vector<int> &data) {
+    for (int i = 0; i < data.size() - 1; i++) {
+        for (int j = 0; j < data.size() - i - 1; j++) {
+            if (data[j] > data[j + 1])
+                swap(data[j], data[j + 1]);
+        }
+    }
 }
 
 
@@ -36,7 +55,7 @@ int main() {
     vector<int> vec = {4, 2, 6, 7, 1, 1, 3, 5, 8};
     for_each(vec.begin(), vec.end(), [](int i) { cout << i << " "; });
     cout << endl;
-    bubbleSort3(vec);
+    bubbleSort5(vec);
 
     for_each(vec.begin(), vec.end(), [](int i) { cout << i << " "; });
 

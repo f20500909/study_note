@@ -32,6 +32,20 @@ void selectSort2(vector<int> &vec) {
         swap(vec[i], vec[index]);
 
     }
+}
+
+
+void selectSort3(vector<int> &data) {
+    // 选择排序 从后部选择最小的元素加入有序数组尾端最最大的
+    for (int i = 0; i < data.size() - 1; i++) {
+        int minIndex = i;
+        for (int j = i; j < data.size(); j++) {
+            if (data[minIndex] > data[j]) {
+                minIndex = j;
+            }
+        }
+        swap(data[i], data[minIndex]);
+    }
 
 }
 
@@ -40,7 +54,7 @@ int main() {
 
     vector<int> data = {4, 7, 8, 3, 1, 1, 2, 6, 5};
     print(data);
-    selectSort(data);
+    selectSort3(data);
     print(data);
 
     return 0;

@@ -1,7 +1,10 @@
 #include<iostream>
 #include<vector>
+#include <math.h>
 
 using namespace std;
+#define MIN(x, y) ( (x)>(y)?(y):(x))
+#define MAX(x, y) ( (x)>(y)?(x):(y))
 
 //归并函数
 void Merge(vector<int> &data, int l, int m, int r) {
@@ -17,6 +20,7 @@ void Merge(vector<int> &data, int l, int m, int r) {
     delete[] temp;
 }
 
+
 void MergeSort(vector<int> &data, int l, int r) {
     if (l == r) return; // 左右相等 就表示排序完成 所有有序元素是紧邻的
     int m = l + ((r - l) >> 1); //取到中间元素
@@ -25,10 +29,25 @@ void MergeSort(vector<int> &data, int l, int r) {
     Merge(data, l, m, r);// 尾递归 进行排序合并操作
 }
 
+void MergeSort2(vector<int> &data, int left, int right) {
+    if (left >= right) return;
+    int m = left + ((right - left) >> 1);
+    vector<int> res;
+    //
+    unsigned gap = 1;
+    while (gap < data.size()) {
+        for (unsigned l = 0; l < data.size(); l += 2 * gap) {
+            int mid = l + gap - 1;
+            int r = MIN(l + 2 * gap - 1, data.size() - 1);
+            Merge(data, l, mid, r);
+        }
+    }
+}
+
 
 int main() {
     vector<int> data = {3, 1, 2, 4, 5, 8, 7, 6};
-    MergeSort(data, 0, 7);
+    MergeSort2(data, 0, 7);
     for (int i = 0; i < 8; ++i)
         cout << data[i] << " ";
 }

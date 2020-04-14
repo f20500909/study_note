@@ -17,7 +17,20 @@
 //    return res;
 //}
 
-void* my_memcpy(char *dest, const char *src, size_t n) {
+
+void *memcpy1(void *dest, const void *src, int size) {
+    if (dest == nullptr || src == nullptr) return nullptr;
+
+    char *d = (char *) (dest);
+    char *s = (char *) (src);
+    while (size--) {
+        *d++ = *s++;
+    }
+
+    return dest;
+}
+
+void *my_memcpy(char *dest, const char *src, size_t n) {
     assert(nullptr != dest);
     assert(nullptr != src);
     char *res = (char *) dest;
@@ -33,7 +46,7 @@ void* my_memcpy(char *dest, const char *src, size_t n) {
         while (n--) {
             *(p++) = *(q++);
         }
-    //源地址   目的地址 (小于n)  目的地址在后,会污染源地址
+        //源地址   目的地址 (小于n)  目的地址在后,会污染源地址
     } else {
         p = p + n - 1;
         q = q + n - 1;
@@ -47,7 +60,7 @@ void* my_memcpy(char *dest, const char *src, size_t n) {
 int main(void) {
     char p1[256] = "hello,world!";
     char p2[256] = {0};
-    my_memcpy(p2, p1, strlen(p1) + 1);
+    memcpy1(p2, p1, strlen(p1) + 1);
 
     printf("%s\n", p2);
 

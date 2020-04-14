@@ -5,17 +5,35 @@
 using namespace std;
 
 vector<int> getNext(string T) {
+    //输入字符串长度
     int len = T.size();
+    //初始化next数组
     vector<int> next(len, 0);
     int k = 0;
     next[0] = -1;
+    //从i为2开始统计
     for (int i = 2; i < len; i++) {
+        //如果k大于0 并且str[i]
         while (k > 0 && T[i - 1] != T[k]) k = next[k];
         if (T[i - 1] == T[k]) k++;
         next[i] = k;
     }
     return next;
 }
+
+vector<int> getNext2(string str) {
+    int len = str.size();
+    vector<int> next(len, 0);
+    int k = 0;
+    next[0] = -1;
+    for (int i = 2; i < len; i++) {
+        while (k > 0 && str[i - 1] != str[k]) k = next[k];
+        if (str[i - 1] == str[k])k++;
+        next[i] = k;
+    }
+    return next;
+}
+
 
 void print(vector<int> &vec) {
     for (auto v:vec) {
@@ -71,7 +89,7 @@ int kmp2(char *src, char *target) {
 
 int main() {
     char *S = "ababaababcbdfsdf4rsdfs";
-    char *T = "";
+    char *T = "abcabcd";
     int num = kmp2(S, T);
     cout << num;
     return 0;

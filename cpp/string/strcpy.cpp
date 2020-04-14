@@ -8,33 +8,37 @@
 using namespace std;
 
 
-//char * strcpy(char* strDest, const char* strSrc)
+//char * strcpy(char* strDest, const char* src)
 //{
-//    if(strSrc!=NULL&&strDest!=NULL)
+//    if(src!=NULL&&strDest!=NULL)
 //    {
-//        if(strDest==strSrc ) {  return strDest;    }
+//        if(strDest==src ) {  return strDest;    }
 //        char* address=strDest;
-//        while((*strDest++=*strSrc++)!='\0');
+//        while((*strDest++=*src++)!='\0');
 //        return address;
 //    }
 //    return NULL;
 //}
 
-char *strcpy(char *str, const char *strSrc) {
-    if (NULL == str || NULL == strSrc) return NULL;
-    if (str == strSrc) return str;
-    char *res = str;
-    while (*strSrc != '\0') {
-        *str++ = *strSrc++;
+
+
+char* strcpy2(char* dest,const char* src){
+    if(nullptr==dest||nullptr==src) return nullptr;
+    if(dest==src) return dest;
+    char* cur=dest;
+    while(*src!='\0'){
+        *(cur++)=*(src++);
     }
-    return res;
+    
+    return dest;
 }
 
 
 int main() {
     char *str2 = "szdfgsdf";
-    char b[3];
-    cout << strcpy(b, str2) << endl;
+    char b[2];
+    cout << strcpy2(b, str2) << endl;
+    cout << b << endl;
 
     return 0;
 }

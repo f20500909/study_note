@@ -23,6 +23,9 @@ void fun(const int num, const string &str) {
     }
 }
 
+
+
+
 int main() {
     thread child(fun,10,"child");
     fun(100,"father");

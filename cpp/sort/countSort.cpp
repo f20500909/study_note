@@ -36,7 +36,7 @@ void countSort(vector<int> &arr) {
     }
 }
 
-int maindfs() {
+int main() {
     vector<int> vec = {1, 5, 3, 7, 6, 2, 8, 9, 4, 3, 3};
     countSort(vec);
     for (auto x : vec) cout << x << " ";

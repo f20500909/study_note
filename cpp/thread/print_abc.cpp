@@ -17,9 +17,11 @@ void func(char ch, int num) {
         unique_lock<mutex> lk(mut);
         cout << ch;
         cnt = (cnt + 1) % 3;
-        lk.unlock();
     }
 };
+
+
+
 
 int main() {
 
