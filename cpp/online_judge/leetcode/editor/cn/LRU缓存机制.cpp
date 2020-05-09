@@ -31,16 +31,42 @@
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class LRUCache {
+private:
+    int cap;
+    int count;
+    unordered_map<int, list < pair < int, int>>::iterator>
+    m;
+    list <pair<int, int>> list;
+
 public:
-    LRUCache(int capacity) {
-
+    LRUCache(int capacity) : cap(capacity), count(0) {
     }
-    
+
     int get(int key) {
-
+        int res = -1;
+        auto p = m.find(key);
+        if (p != m.end()) {
+            res = p->second->second;
+            list.erase(p->second);
+            list.push_front(make_pair(key, res));
+            p->second = list.begin();
+        }
+        return res;
     }
-    
+
     void put(int key, int value) {
+        auto p = m.find(key);
+        if (p != m.end()) {
+            list.erase(p->second);
+        } else if (cap == count) {
+            m.erase(list.back().first);
+            list.pop_back();
+        } else {
+            count++;
+        }
+
+        list.push_front(make_pair(key, value));
+        m[key] = list.begin();
 
     }
 };

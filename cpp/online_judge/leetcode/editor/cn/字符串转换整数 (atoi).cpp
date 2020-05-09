@@ -64,6 +64,9 @@
 class Solution {
 public:
     int myAtoi(string str) {
+        if(str.empty()) return 0;
+        int len =str.size();
+        int cur = 0;
         
     }
 };

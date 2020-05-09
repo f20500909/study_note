@@ -43,7 +43,7 @@ public:
         TreeNode* cur = root;
         TreeNode* pre = nullptr;
         stack<TreeNode*> s;
-        while (!s.empty()||cur) {
+        while(!s.empty()||cur) {
             if (cur) {
                 s.push(cur);
                 cur=cur->left;
@@ -54,14 +54,12 @@ public:
                     pre = cur;
                 }else{
                     pre->right = cur;
-                    cur->left =pre;
+//                    cur->left =pre;
                     pre = cur;
                 }
                 cur = cur->right;
             }
         }
-        pre->right = root;
-        root->left = pre;
 
     }
 };
