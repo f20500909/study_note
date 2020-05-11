@@ -42,7 +42,8 @@
 
 class Solution {
     void reverse(string &s, int left, int right) {
-        if (left < 0 || right >= s.size()) return;
+        if (left < 0 || left >= s.size()) return;
+        if (right < 0 || right >= s.size()) return;
         while (left < right) {
             swap(s[left++], s[right--]);
         }

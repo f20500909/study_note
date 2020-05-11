@@ -11,24 +11,28 @@ void shellSort1(vector<int> &data) {
     for (gap = len / 2; gap > 0; gap /= 2) {
         //遍历所有
         for (i = gap; i < len; i++) {
-            for (j = i - gap; j >= 0 && data[j] > data[j + gap]; j -= gap) {
-                swap(data[j], data[j + gap]);
+            for (j = i - gap; j >= 0; j -= gap) {
+                if (data[j] > data[j + gap])
+                    swap(data[j], data[j + gap]);
             }
         }
     }
 }
 
+
 void shellSort2(vector<int> &data) {
-    int len = data.size();
-    int gap;
-    for (gap = len >> 1; gap > 0; gap >>= 1) {
-        for (int i = gap; i < len; i++) {
+    int gap = data.size() >> 1;
+    while (gap > 0) {
+        for (int i = gap; i < data.size(); i++) {
             for (int j = i - gap; j >= 0; j -= gap) {
-                //冒牌大的向上浮
-                if (data[j] > data[j + gap])swap(data[j], data[j + gap]);
+                if (data[j] > data[j + gap]) {
+                    swap(data[j], data[j + gap]);
+                }
             }
         }
+        gap = gap >> 1;
     }
+
 }
 
 

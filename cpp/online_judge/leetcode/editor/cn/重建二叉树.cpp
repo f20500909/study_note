@@ -38,10 +38,32 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// 前序遍历 preorder = [3,9,20,15,7]
+//中序遍历 inorder = [9,3,15,20,7]
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
+        if (preorder.size() == 0) return nullptr;
+        if (preorder.size() != inorder.size()) return nullptr;
+        TreeNode *res = nullptr;
+        return build(preorder, inorder, 0, inorder.size() - 1, res);
+    }
 
+    TreeNode *build(vector<int> &preorder, vector<int> &inorder, int left, int right, TreeNode *&res) {
+        if (left >= preorder.size()) return res;
+        if (right <= 0) return res;
+        if (left > right) return res;
+        if (!res) {
+            res = new TreeNode(preorder[left]);
+        }
+        int cur = left;
+        while (preorder[left] != inorder[cur]) {
+            cur++;
+        }
+        res->left = build(preorder, inorder, left, cur - 1, res);
+        res->right = build(preorder, inorder, cur + 1, right, res);
+
+        return res;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)

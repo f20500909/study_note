@@ -37,10 +37,14 @@ public:
         return (data1 + data2) / 2.0;
     }
 
+    //找到两个数组中的第k个元素
     int findKth(vector<int> &nums1, int i, vector<int> &nums2, int j, int k) {
+        //递归出口 i或j 越界时直接返回
         if (i >= nums1.size()) return nums2[j + k - 1];
         if (j >= nums2.size()) return nums1[i + k - 1];
+        //如果k==1,也就是第一个元素，返回两者中的最小值
         if (k == 1) return min(nums1[i], nums2[j]);
+
         int midVal1 = (i + k / 2 - 1 < nums1.size()) ? nums1[i + k / 2 - 1] : INT_MAX;
         int midVal2 = (j + k / 2 - 1 < nums2.size()) ? nums2[j + k / 2 - 1] : INT_MAX;
         if (midVal1 < midVal2) {

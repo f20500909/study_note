@@ -22,7 +22,23 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
+        if (nums.size() == 0) return;
+        sort(nums.begin(), nums.end());
+        vector <vector<int>> res;
+        int left = 0;
+        int right = nums.size() - 1;
+        int cur = 1;
+        while (left < cur && cur < right) {
+            int sum = nums[left] + nums[cur] + nums[right];
+            if (sum == 0) {
+                res.push({nums[left], nums[cur], nums[right]});
+            }else if(){
 
+            }
+
+
+        }
+        return res;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
