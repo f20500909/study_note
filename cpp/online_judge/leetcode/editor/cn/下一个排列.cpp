@@ -15,9 +15,30 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        //从最后开始遍历，找到比他小的  互换
-        int index = nums[]
+        if (nums.size(0 <= 1)) return;
+        int i = nums.size() - 2;
+        int j = nums.size() - 1;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+           --i;
+        }
+        if(i>=0){
+            while()
+        }
+
 
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
+
+
+
+
+
+
+
+
+
+
+
+
+

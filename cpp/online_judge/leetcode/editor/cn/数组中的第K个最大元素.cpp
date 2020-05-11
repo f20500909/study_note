@@ -20,40 +20,56 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 public:
-    //小根堆 放大元素
-    void heapify(vector<int> &data, int index, int len) {
-        int left = (index >> 1) + 1;
-        int right = (index >> 1) + 2;
-        int maxId = index;
-        if (left < len && data[left] < data[maxId]) maxId = left;
-        if (right < len && data[right] < data[maxId]) maxId = right;
-        if (maxId != index) {
-            swap(data[maxId], data[index]);
-            heapify(data, maxId, len);
+    int partition(vector<int> &nums, int left, int right) {
+        int val = nums[right];
+        while (left < right) {
+            while (left < right && nums[left] <= val) {
+                left++;
+            }
+            nums[right] = nums[left];
+            while (left < right && nums[right] >= val) {
+                right--;
+            }
+            nums[left] = nums[right];
         }
+        nums[left] = val;
+        return left;
     }
 
     int findKthLargest(vector<int> &nums, int k) {
         if (nums.size() == 0) return -1;
-        if (nums.size() == 1) return nums[0];
-        vector<int> heap(k, 0);
-        for (int i = 0; i < k; i++) {
-            heap[i] = nums[i];
-        }
-        //堆有序化
-        for (int i = k >> 1; i >= 0; i--) {
-            heapify(heap, i, k);
-        }
-        //最小堆 最顶就是第k小的
-        for (int i = k; i < nums.size(); i++) {
-            //如果比最小堆中的最小值还大，就更新小根堆的最小数据
-            if (nums[i] > heap[0]) {
-                heap[0] = nums[i];
-                heapify(heap, 0, k);
+        if (nums.size() < k) return -1;
+        //进行转换，第k大，变为按序过程中的第k个
+        k = nums.size() - k;
+        int left = 0;
+        int right = nums.size() - 1;
+        int cur = partition(nums, left, right);
+        while (cur != k) {
+            if (cur > k) {
+                cur = partition(nums, left, cur - 1);
+            } else {
+                cur = partition(nums, cur + 1, right);
             }
+
         }
-        return heap[0];
+        return nums[k];
 
     }
+
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //leetcode submit region end(Prohibit modification and deletion)

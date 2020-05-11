@@ -18,27 +18,6 @@ void bubbleSort(vector<int> &vec, int len) {
 }
 
 
-void bubbleSort3(vector<int> &data) {
-    for (int i = 0; i < data.size() - 1; i++) {
-        for (int j = 1; j < data.size() - i - 1; j++) {
-            //交换
-            if (data[j - 1] > data[j]) {
-                swap(data[i], data[j]);
-            }
-        }
-
-    }
-}
-
-
-void bubbleSort4(vector<int> &data) {
-    for (int i = 0; i < data.size() - 1; i++) {
-        for (int j = 1; j < data.size() - i - 1; j++) {
-            if (data[j] < data[j - 1]) swap(data[j], data[j - 1]);
-        }
-    }
-}
-
 
 //冒泡排序 始终从0开始比较起
 void bubbleSort5(vector<int> &data) {

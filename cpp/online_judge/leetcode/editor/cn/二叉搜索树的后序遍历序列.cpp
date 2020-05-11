@@ -33,8 +33,30 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 public:
-    bool verifyPostorder(vector<int>& postorder) {
+    bool verifyPostorder(vector<int> &postorder) {
+        if (postorder.size() == 0) return true;
+        return verify(postorder, 0, postorder.size() - 1);
 
     }
+
+    bool verify(vector<int> &data, int left, int right) {
+        if (left >= right) return true;
+        int val = data[right];
+        int cur = left;
+        while (data[cur] < val) {
+            cur++;
+        }
+        int mid = cur;
+        while (cur++ < right) {
+            if (data[cur] < val) {
+                return false;
+            }
+        }
+        return verify(data, left, mid - 1) && verify(data, mid, right - 1);
+    }
 };
+
+
+
+
 //leetcode submit region end(Prohibit modification and deletion)

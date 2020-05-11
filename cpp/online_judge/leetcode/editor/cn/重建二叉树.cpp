@@ -41,21 +41,6 @@
 class Solution {
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        if(preorder.size()==0||preoder.size()!=inorder.size()) return nullptr;
-        int val = preorder[0];
-        TreeNode* root =new TreeNode(val);
-        if(pre.size()==1) return root;
-
-        auto pos = find(inorder.begin();inorder.end();value);
-
-        if(pos == in.end()){
-            return nullptr;
-        }
-        int leftSize = pos - inbegin();
-        int rightSize = inorder.end() - pos -1;
-        root->left = buildTree(vector<int>)
-
-
 
     }
 };

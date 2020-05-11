@@ -56,28 +56,19 @@ void MergeSort2(vector<int> &data, int left, int right) {
     }
 }
 
-void mergeSort3(vector<int> &data, int left, int right) {
-    if (left >= right) return;
-    int gap = 1;
-    int l;
-    int r;
-    int mid;
-    while (gap < data.size()) {
-        for (int l = 0; l < data.size(); l += 2 * gap) {
-            mid = l + gap - 1;
-            r = min(l + 2 * gap - 1, int(data.size() - 1));
-            Merge(data, l, mid, r);
-        }
-        gap = gap << 1;
+void mergeSort4(vector<int>& data,int left,int right){
+    if(left>=right) return ;
+    int gap =1;
+    while(gap<data.size()){
+
     }
 
 }
 
 
-
 int main() {
     vector<int> data = {3, 1, 2, 4, 5, 8, 7, 6};
-    mergeSort3(data, 0, 7);
+    mergeSort4(data, 0, 7);
     for (int i = 0; i < 8; ++i)
         cout << data[i] << " ";
 }
