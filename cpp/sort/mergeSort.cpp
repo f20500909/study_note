@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include <math.h>
+#include <algorithm>
 
 using namespace std;
 #define MIN(x, y) ( (x)>(y)?(y):(x))
@@ -45,9 +45,6 @@ void MergeSort(vector<int> &data, int l, int r) {
 
 void MergeSort2(vector<int> &data, int left, int right) {
     if (left >= right) return;
-    int m = left + ((right - left) >> 1);
-    vector<int> res;
-    //
     unsigned gap = 1;
     while (gap < data.size()) {
         for (unsigned l = 0; l < data.size(); l += 2 * gap) {
@@ -55,27 +52,32 @@ void MergeSort2(vector<int> &data, int left, int right) {
             int r = MIN(l + 2 * gap - 1, data.size() - 1);
             Merge(data, l, mid, r);
         }
+        gap = gap << 1;
     }
 }
-
 
 void mergeSort3(vector<int> &data, int left, int right) {
     if (left >= right) return;
-    vector<int> res;
     int gap = 1;
+    int l;
+    int r;
+    int mid;
     while (gap < data.size()) {
         for (int l = 0; l < data.size(); l += 2 * gap) {
-            int mid = l + gap - 1;
-            int r = MIN(l + 2 * gap - 1, data.size() - 1);
+            mid = l + gap - 1;
+            r = min(l + 2 * gap - 1, int(data.size() - 1));
             Merge(data, l, mid, r);
         }
+        gap = gap << 1;
     }
+
 }
+
 
 
 int main() {
     vector<int> data = {3, 1, 2, 4, 5, 8, 7, 6};
-    MergeSort(data, 0, 7);
+    mergeSort3(data, 0, 7);
     for (int i = 0; i < 8; ++i)
         cout << data[i] << " ";
 }

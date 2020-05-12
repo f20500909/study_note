@@ -41,7 +41,24 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-
+        if (s.size() == 0) return 0;
+        vector<int> dp(256, -1);
+        int maxLen = 0;
+        int curLen = 0;
+        for (int i = 0; i < s.size(); i++) {
+            int index = s[i] ;
+            if (dp[index] < 0) curLen++;
+            else {
+                int len = i - dp[index];
+                if (curLen >= len)curLen = len;
+                else {
+                    curLen++;
+                }
+            }
+            dp[index] = i;
+            maxLen = max(maxLen, curLen);
+        }
+        return maxLen;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)

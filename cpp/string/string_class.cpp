@@ -70,6 +70,7 @@ String String::operator+(const String &str) {
 	strcpy(newStr.data + size, str.data);
 	return newStr;
 }
+
 // 字符串赋值
 String & String::operator=(const String &str) {
 	if (data == str.data) {
@@ -81,6 +82,7 @@ String & String::operator=(const String &str) {
 	strcpy(data, str.data);
 	return *this;
 }
+
 // 字符串赋值
 String& String::operator=(const char* str) {
 	if (data == str) {
@@ -92,10 +94,13 @@ String& String::operator=(const char* str) {
 	strcpy(data, str);
 	return *this;
 }
+
 // 判断是否字符串相等
 bool String::operator==(const String &str) {
 	return strcmp(data, str.data) == 0;
 }
+
+
 // 获取字符串长度
 int String::length() {
 	return size;
@@ -166,8 +171,9 @@ public:
         if(src._size==1&& this->_size==1) return true;
         return strcmp(src._data,this->_data);
     }
-
 };
+
+
 
 int main() {
 	String str1("hello ");

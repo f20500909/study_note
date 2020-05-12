@@ -11,7 +11,7 @@ class LRUCache {
 private:
     int cap;
     int count;
-    typedef typename list<pair<KEY, VALUE>>::iterator ITER;
+    typedef typename list<pair<KEY, VALUE>>::iterator  ITER;
     unordered_map<int, ITER> m;
     list<pair<KEY, VALUE>> list;
 
@@ -22,7 +22,7 @@ public:
     //取数据
     VALUE get(KEY key) {
         VALUE res = VALUE("null");
-        unordered_map<int,  <pair<KEY, VALUE>>::iterator>::iterator p = m.find(key);
+        auto  p = m.find(key);
         if (p != m.end()) {
             //如果能找到数据, p->second 取到对应的list  list->second 取到对应的数据
             res = p->second->second;
@@ -34,6 +34,19 @@ public:
             p->second = list.begin();
         }
 
+        return res;
+    }
+
+    VALUE get2(KEY key){
+        VALUE res = VALUE("null");
+        auto p=m.find(key);
+        if(p!=m.end()){
+            res = p->second->second;
+            list.earse(p->second);
+            list.push_front({key,res});
+            p->second=list.begin();
+
+        }
         return res;
     }
 

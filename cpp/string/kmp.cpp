@@ -20,17 +20,13 @@ vector<int> getNext(string T) {
     }
     return next;
 }
-
-vector<int> getNext2(string str) {
-    int len = str.size();
-    vector<int> next(len, 0);
+vector<int> getNext(string T){
+    int len = T.size();
+    vector<int> next(len,0);
     int k = 0;
     next[0] = -1;
-    for (int i = 2; i < len; i++) {
-        while (k > 0 && str[i - 1] != str[k]) k = next[k];
-        if (str[i - 1] == str[k])k++;
-        next[i] = k;
-    }
+    for(int )
+
     return next;
 }
 

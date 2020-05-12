@@ -57,23 +57,10 @@ void *my_memcpy(char *dest, const char *src, size_t n) {
     return res;
 }
 
-void * memcpy2(void *dest, const void *src, int n) {
-    if(!dest||!src) return nullptr;
-    if(dest == src) return nullptr;
-    if(n<=0) return nullptr;
-    char *d = (char*)dest;
-    char* s = (char*)src;
-    while(n--){
-        *(d++)=*(s++);
-    }
-    return dest;
-}
-
-
 int main(void) {
     char p1[256] = "hello,world!";
     char p2[256] = {0};
-    memcpy2(p2, p1, strlen(p1) + 1);
+    memcpy(p2, p1, strlen(p1) + 1);
 
     printf("%s\n", p2);
 
@@ -89,3 +76,19 @@ int main(void) {
     printf("%s\n", p1);
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
