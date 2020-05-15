@@ -24,7 +24,19 @@
 class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> m;
+        for(int i=0;i<nums1.size();i++){
+            m[nums1[i]]++;
+        }
 
+        vector<int> res;
+        for(int i=0;i<nums2.size();i++){
+            if(m.find(nums2[i])!=m.end()&&m[nums2[i]]!=-1){
+                res.push_back(nums2[i]);
+                m[nums2[i]]=-1;
+            }
+        }
+        return res;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
