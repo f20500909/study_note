@@ -73,15 +73,15 @@ private:
     vector<Component*> components;
 };
 
-//int main(){
-//    Component* p=new Composite("小李");
-//    p->add(new Leaf("小王"));
-//    p->add(new Leaf("小强"));
-//
-//    Component* sub=new Component("小虎");
-//    sub
-//
-//
-//    return 0;
-//}
+int main(){
+    Component* p=new Composite("小李");
+    p->add(new Leaf("小王"));
+    p->add(new Leaf("小强"));
+
+    Component* sub=new Component("小虎");
+    sub
+
+
+    return 0;
+}
 

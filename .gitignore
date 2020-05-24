@@ -16,3 +16,6 @@
 *.makefile
 *.temp
 */.idea
+*translation.json
+*all.json
+
