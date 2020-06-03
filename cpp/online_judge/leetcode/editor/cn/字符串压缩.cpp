@@ -28,7 +28,22 @@
 class Solution {
 public:
     string compressString(string str) {
+        if (str.size() <= 1) return str;
+        int left = 0;
+        int right = 0;
+        int i = 0;
 
+        while (i < str.size()) {
+            int cnt = 1;
+
+            while (i + 1 < str.size() && str[i] == str[i + 1]) {
+                cnt++;
+            }
+
+            i++;
+        }
+
+        return str.substr(0, right);
 
 
     }

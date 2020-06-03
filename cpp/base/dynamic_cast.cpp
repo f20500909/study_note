@@ -19,17 +19,17 @@ int main() {
     //这是第一种情况
     Base *base = new Derived;
     if (Derived *der = dynamic_cast<Derived *>(base)) {
-        cout << "第一种情况转换成功" << endl;
+        cout << "first success .." << endl;
         der->Show();
         cout << endl;
     }
     //这是第二种情况
     Base *base1 = new Base;
     if (Derived *der1 = dynamic_cast<Derived *>(base1)) {
-        cout << "第二种情况转换成功" << endl;
+        cout << "second success..." << endl;
         der1->Show();
     } else {
-        cout << "第二种情况转换失败" << endl;
+        cout << "second fail " << endl;
     }
 
     delete (base);
