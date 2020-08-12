@@ -41,13 +41,14 @@ String::String(const char *str) {
 		data = new char[1];
 		data[0] = '\0';
 		size = 0;
-	}//if
+	}
 	else {
 		size = strlen(str);
 		data = new char[size + 1];
 		strcpy(data, str);
 	}//else
 }
+
 // 复制构造函数
 String::String(const String &str) {
 	size = str.size;
@@ -139,18 +140,32 @@ public:
             strcpy(_data,src);
         }
     }
+
     MyString2(MyString2& src){
         this->_size=src._size;
-//        this->_data=src._data;
         delete[] this->_data;
         this->_data = new char [this->_size+1];
         strcpy(this->_data,src._data);
     }
 
-    MyString2& operator=(MyString2& src){
-
+    ~ MyString2(){
+        this->_size=0;
+        delete[] this->_data;
     }
 
+    inline long long len(){ retur this->_size;}
+
+    MyString2& operator=(MyString2& src){
+        this->_size = src._size;
+        delete[] this->_data;
+        this->_data = new char[this->_size+1];
+        strcpy(this->_data,src._data);
+    }
+
+    bool operator==(MyString2& src){
+        if(src._size==1&& this->_size==1) return true;
+        return strcmp(src._data,this->_data);
+    }
 
 };
 

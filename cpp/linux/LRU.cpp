@@ -9,14 +9,11 @@ class LRUCache {
 private:
     int cap;
     int count;
-    unordered_map<int, list<pair<int, int>>::iterator>
-            m;
+    unordered_map<int, list<pair<int, int>>::iterator> m;
     list<pair<int, int>> queue;
 
 public:
-    LRUCache(int capacity) {
-        cap = capacity;
-        count = 0;
+    LRUCache(int capacity) : cap(capacity), count(0) {
     }
 
     int get(int key) {

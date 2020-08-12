@@ -50,41 +50,12 @@ void quickSort(vector<int> &vec, int left, int right) {
     if (index < right) quickSort(vec, index + 1, right);
 }
 
-
-int partition4(vector<int> &data, int left, int right) {
-    int val = data[left];
-    while (left < right) {
-        while (left < right && data[right] >= val)right--;
-        data[left] = data[right];
-        while (left < right && data[left] <= val)left++;
-        data[right] = data[left];
-    }
-    data[left] = val;
-    return left;
-}
-
-
-void quickSort4(vector<int> &data, int left, int right) {
-    if (left >= right) return;
-    int index = partition4(data, left, right);
-    if (index > left) quickSort4(data, left, index - 1);
-    if (index < right) quickSort4(data, index + 1, right);
-}
-
-
-
-
-
 int partition3(vector<int>& data,int left,int right){
     int val =data[right];
     while(left<right){
-        while(left<right&&data[left]<=val){
-            left++;
-        }
+        while (left < right && data[left] <= val) left++;
         data[right]=data[left];
-        while(left<right&&data[right]>=val){
-            right--;
-        }
+        while (left < right && data[right] >= val) right--;
         data[left]=data[right];
     }
     data[left]=val;
@@ -97,9 +68,6 @@ void quickSort3(vector<int>& data,int left,int right){
     if(index>left) quickSort3(data,left,index-1);
     if(index<right) quickSort3(data,index+1,right);
 }
-
-
-
 
 int main() {
 

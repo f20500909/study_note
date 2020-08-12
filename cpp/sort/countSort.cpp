@@ -36,6 +36,25 @@ void countSort(vector<int> &arr) {
     }
 }
 
+void countSort2(vector<int>& data){
+    int len =data.size();
+    if(len<1) return ;
+
+    int _max = INT_MIN;
+    int _min = INT_MAX;
+    for (auto v:data) {
+        _max = max(_max, v);
+        _min = min(_min, v);
+    }
+    int areaLen = _max-_min;
+    vector<int> count(areaLen+1,0);
+    vector<int> temp(data);
+
+
+}
+
+
+
 int main() {
     vector<int> vec = {1, 5, 3, 7, 6, 2, 8, 9, 4, 3, 3};
     countSort(vec);

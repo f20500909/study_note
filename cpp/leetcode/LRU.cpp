@@ -1,5 +1,4 @@
 #include <iostream>
-#include <queue>
 #include <list>
 #include <unordered_map>
 
@@ -7,11 +6,10 @@ using namespace std;
 
 class LRUCache {
 private:
-    int cap;
+    int cap;    // 总容量
     int count;
-    unordered_map<int, list<pair<int, int>>::iterator>
-            m;
-    list<pair<int, int>> queue;
+    unordered_map<int, list<pair<int, int>>::iterator> m;
+    list<pair<int, int>> list;
 
 public:
     LRUCache(int capacity) {
@@ -21,12 +19,12 @@ public:
 
     int get(int key) {
         int res = -1;
-        auto p = m.find(key);
-        if (p != m.end()) {
-            res = p->second->second;
-            queue.erase(p->second);
-            queue.push_front(make_pair(key, res));
-            p->second = queue.begin();
+        auto p = m.find(key); //在红黑树中查找key
+        if (p != m.end()) {   //如果没找到
+            res = p->second->second;  // p   [ key    [ ]   ]
+            list.erase(p->second);    //链表中删除改节点
+            list.push_front(make_pair(key, res));
+            p->second = list.begin();
         }
         return res;
     }
@@ -34,17 +32,19 @@ public:
     void put(int key, int value) {
         auto p = m.find(key);
         if (p != m.end()) {
-            queue.erase(p->second);
+            list.erase(p->second);
         } else if (count == cap) {
-            int delkey = queue.back().first;
-            queue.pop_back();
+            int delkey = list.back().first;
+            list.pop_back();
             m.erase(delkey);
         } else {
             ++count;
         }
-        queue.push_front(make_pair(key, value));
-        m[key] = queue.begin();
+        list.push_front(make_pair(key, value));
+        m[key] = list.begin();
     }
+
+
 };
 
 

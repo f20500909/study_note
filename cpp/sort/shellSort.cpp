@@ -63,7 +63,6 @@ void shellSort3(vector<int> &data) {
 
 void shellSort(vector<int> &data) {
     for (int gap = (data.size() >> 1); gap >= 0; gap = (gap >> 1)) {
-
         for (int i = gap; i <= data.size(); i++) {
             for (int j = i - gap; j >= 0 && data[j] > data[j + gap]; j -= gap) {
                 swap(data[j], data[j + gap]);
@@ -71,7 +70,17 @@ void shellSort(vector<int> &data) {
         }
 
     }
+}
 
+void shellSort4(vector<int> &data) {
+    int len = data.size();
+    for (int gap = (len >> 1); gap >= 0; gap = (gap >> 1)) {
+        for (int i = gap; i <= len; i ++) {
+            for (int j = i - gap; j >= 0 && data[j] > data[j + gap]; j -= gap) {
+                swap(data[j], data[j + gap]);
+            }
+        }
+    }
 }
 
 
@@ -79,7 +88,7 @@ int main() {
     vector<int> array = {2, 1, 4, 3, 3, 4, 11, 6, 5, 7, 8, 10, 15};
 //    shellSort1(array, 13);
 //    shellSort2(array, 13);
-//    shellSort3(array, 13);
+    shellSort(array);
     for (auto it: array) {
         cout << it << " ";
     }

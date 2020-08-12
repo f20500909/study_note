@@ -36,21 +36,31 @@ void heapSort(vector<int> &vec, int len) {
     }
 }
 
+void heapify2(vector<int>& data,int index,int len){
+    int  left = (index>>1) +1;
+    int right = (index>>1) +2;
+    int maxId =index;
+    if(left<right&&data[left]<data[maxId]){
 
-void heapSort(vector<int> &data) {
-    //建立初始堆
-    for (int i = (data.size() >> 1); i >= 0; i--) {
-        heapify(data, i, data.size());
-    }
 
-    //减少堆的大小 有序化数组
-    for (int i = data.size() - 1; i >= 1; i--) {
-        //堆顶是最大的  交换堆顶 减少堆的大小
-        swap(data[0], data[i]);
-        heapify(data, 0, i);
     }
 
 }
+
+void heapSort(vector<int>& data){
+    int len = data.size();
+    // 建堆 从下到上
+    for(int i=(len>>1);i>=0;i--){
+        heapify(data,i,len);
+    }
+    for(int i=len-1;i>=1 ;i--){
+        swap(data[0],data[i]);
+        heapify(data,0,i);
+    }
+}
+
+
+
 
 
 int main() {

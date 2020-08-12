@@ -12,8 +12,6 @@ public:
 };
 
 
-
-
 Singleton::Singleton()
 {
     std::cout << "Create a Singleton" << std::endl;
